@@ -1,0 +1,52 @@
+<main class="h-100" style="margin-left: 270px;">
+
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+         <form name="myForm" class="mt-5">
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-3 d-flex justify-content-between align-items-center">
+            <h3 class="font-weight-bold mb-0 ml-3">Password Settings</h3>
+        </div>
+        <!-- End Title Container -->
+        <p ng-show="myForm.password2.$error.pattern" class="text-qzndanger mb-3">&emsp;&emsp;&emsp;Password does not match</p>
+        <p ng-show="myForm.password1.$error.minlength" class="text-qzndanger mb-3">&emsp;&emsp;&emsp;Password must be atleast 8 characters</p>
+        <div class="w-lg-95 mx-auto mb-3">
+            <!-- Inputs -->
+           
+
+            <div class="mb-3 mx-3 w-50">
+                <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Current Password</label>
+                <div class="input-group input-group-lg">
+                    <input type="password" class="form-control" 
+                        ng-model="password" tabindex="2" required>
+                </div>
+            </div>
+
+            <div class="mb-3 mx-3 w-50">
+                <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">New Password</label>
+                <div class="input-group input-group-lg">
+                    <input type="password" name="password1" ng-minlength="8" ng-pattern="password2" class="form-control" 
+                        ng-model="newpw" tabindex="2" required>
+                </div>
+            </div>
+
+            <div class="mb-3 mx-3 w-50">
+                <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Confirm Password</label>
+                <div class="input-group input-group-lg">
+                    <input type="password" name="password2" ng-pattern="newpw" class="form-control"  
+                        ng-model="confpw" tabindex="2" required>
+                </div>
+            </div>
+
+        
+           
+
+            <div class="mx-3">
+                <button class="btn btn-primary btn-rounded fnt-btn fnt-primary px-4" ng-disabled="myForm.$invalid" ng-click="saveCred()"
+                tabindex="6">Save</button>
+               
+            </div>
+        </div>
+        </form>
+    </div>
+
+</main>

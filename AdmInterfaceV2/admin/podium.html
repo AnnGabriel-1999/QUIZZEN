@@ -1,0 +1,92 @@
+<main class="h-100">
+    <div class="container-fluid px-0 h-100">
+
+        <div class="d-flex flex-column h-100">
+
+            <!-- Header -->
+            <div class="w-100 shadow-sm position-fixed" style="height: 67px; z-index: 99; background-color: 
+                #594083;">
+                <div class="container-fluid h-100">
+                    <div class="row px-5" style="height: 67px;">
+                        <!-- Host Name -->
+                        <div class="col-sm-3 col-md-3 d-flex justify-content-start align-items-center h-100">
+                            <div class="d-flex align-items-center">
+
+                            </div>
+                        </div>
+
+                        <!-- Timer -->
+                        <div class="col-sm-6 d-flex col-md-6 justify-content-center align-items-center position-relative h-100">
+                            <h4 class="mb-0 text-white">Podium</h4>
+                        </div>
+
+                        <!-- Quiz Title -->
+                        <div class="col-sm-3 col-md-3 d-flex justify-content-end align-items-center h-100">
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-warning" ng-click="next()" ng-hide="$root.game_mode.autoMove">
+                                    Next <i class="fas fa-chevron-circle-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100 bg-white position-fixed">
+                <div class="p-4">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contents -->
+            <div style="height: 100vh; background-color: #966cda;">
+                <!-- Question -->
+                <div class="container" style="height: 86vh; margin: 0 auto; margin-top: 14vh;">
+                    <div class="row no-gutters" style="height: 86vh; min-height: 60vh;">
+
+                        <div class="col-md-12 d-flex justify-content-center align-items-end">
+                            <!-- <div class="card col-3" ng-if="tops[1]"> -->
+                            <div class="card col-3 px-0 border-0" style="height: 60% !important;" ng-if="tops[1]">
+                                <img src="../admin/svg/silver-medal.svg" height="148" alt="2nd Place" class="card-img-top py-3">
+                                <div class="card-body d-flex justify-content-center align-items-center" style="background-color: #594083;">
+                                    <div class="text-center">
+                                        <h3 class="mb-1 text-white">2nd</h3>
+                                        <h6 class="text-white">{{tops[1].nickname}}</h6>
+                                        <h6 class="text-white">{{tops[1].points}} pts</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card col-3 px-0 border-0 mx-2 h-75" ng-if="tops[0]">
+                                <img src="../admin/svg/gold-medal.svg" height="148" alt="1st Place" class="card-img-top py-3">
+                                <div class="card-body d-flex justify-content-center align-items-center" style="background-color: #594083;">
+                                    <div class="text-center">
+                                        <h3 class="mb-1 text-white">1st</h3>
+                                        <h6 class="text-white">{{tops[0].nickname}}</h6>
+                                        <h6 class="text-white">{{tops[0].points}} pts</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="card col-3" ng-if="tops[2]"> -->
+                            <div class="card col-3 px-0 border-0" style="height: 50% !important;" ng-if="tops[2]">
+                                <img src="../admin/svg/bronze-medal.svg" height="148" alt="3rd Place" class="card-img-top py-3">
+                                <div class="card-body d-flex justify-content-center align-items-center" style="background-color: #594083;">
+                                    <div class="text-center">
+                                        <h3 class="mb-1 text-white">3rd</h3>
+                                        <h6 class="text-white">{{tops[2].nickname}}</h6>
+                                        <h6 class="text-white">{{tops[2].points}} pts</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</main>

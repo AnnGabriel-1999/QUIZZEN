@@ -1,0 +1,653 @@
+<!-- New Quiz Modal -->
+<div class="modal fade" id="newQuiz-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog mb-5">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="h6 mb-0">Add New Quiz</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Contents -->
+            <div class="modal-body p-4">
+                <form name="form">
+
+                    <!-- Alert -->
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="error1">
+                        {{error1}}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <p ng-show="form.quizTitle.$error.minlength" class="alert alert-danger alert-dismissible fade show">Title
+                        must be atleast 5 characters</p>
+                    <p ng-show="form.quizTitle.$error.maxlength" class="alert alert-danger alert-dismissible fade show">Title
+                        exceeds to the maximum length</p>
+                    <p ng-show="form.description.$error.minlength" class="alert alert-danger alert-dismissible fade show">Description
+                        is too short, minimum length is 10</p>
+                    <p ng-show="form.description.$error.maxlength" class="alert alert-danger alert-dismissible fade show">Description
+                        exceeds to the maximum length</p>
+                    <p ng-show="form.duration.$error.maxlength" class="alert alert-danger alert-dismissible fade show">Duration
+                        exceeds to the maximum length</p>
+                    <p ng-show="form.tags-input.$error.maxlength" class="alert alert-danger alert-dismissible fade show">Tag
+                        Name has a maximum length of 10</p>
+                    <!-- End Alert -->
+
+                    <!-- Quiz Title -->
+                    <div class="mb-3">
+                        <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Quiz
+                            Title</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" id="text_title" class="form-control" placeholder="The Lion King" name="quizTitle"
+                                ng-minlength="5" ng-maxlength="90" ng-model="quizTitle" required>
+                            <div class="text-remaining-indicator align-self-center" id="text_feedback-title"></div>
+                        </div>
+                    </div>
+                    <!-- End Quiz Title -->
+
+                    <!-- Quiz Description -->
+                    <div class="mb-3">
+                        <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Quiz
+                            Description</label>
+                        <div class="input-group input-group-lg">
+                            <textarea type="text" id="text_desc" class="form-control" placeholder="Add a description"
+                                rows="4" name="description" ng-minlength="10" ng-maxlength="250" ng-model="quizDesc"
+                                style="height: 100px;" required></textarea>
+                            <div class="text-remaining-indicator align-self-center" id="text_feedback-desc"></div>
+                        </div>
+                    </div>
+                    <!-- End Quiz Description -->
+
+                    <!-- Quiz Image -->
+                    <div class="mb-3">
+                        <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Image</label>
+                        <div class="custom-file">
+                            <input type="file" accept="image/*" class="custom-file-input" file-input="files">
+                            <label class="custom-file-label">Choose image</label>
+                        </div>
+                    </div>
+                    <!-- End Quiz Image -->
+
+                    <!-- Quiz Mode -->
+                    <div class="mb-3">
+                        <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Quiz
+                            Mode</label>
+                        <label class="btn btn-primary opt-quizMode active">
+                            <input id="opt-freeflow" ng-checked="checkDefault" type="radio" name="quizMode"
+                                autocomplete="off" ng-model="typeNewQuiz" ng-value="'Freeflow'" style="visibility: hidden;"
+                                selected> Freeflow
+                        </label>
+                        <label class="btn btn-light opt-quizMode">
+                            <input id="opt-segments" type="radio" name="quizMode" autocomplete="off" ng-model="typeNewQuiz"
+                                ng-value="'Segment'" style="visibility: hidden;"> Segments
+                        </label>
+                    </div>
+
+                    <!-- Freeflow Selected -->
+                    <div class="row no-gutters" id="freeflowOptions">
+
+                        <!-- Question Type Selection -->
+                        <div class="col-md-6 pr-1">
+                            <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Question
+                                Type</label>
+                            <select class="form-control" ng-model="typeName" required>
+                                <option disabled hidden value="">Question Types</option>
+                                <option>Multiple Choice</option>
+                                <option>True or False</option>
+                                <option>Guess the Word</option>
+                                <option>Arrange the Sequence</option>
+                            </select>
+                        </div>
+                        <!-- End Question Type Selection -->
+
+                        <!-- DROPDOWN DURATION -->
+                        <div class="mb-3">
+                            <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Duration
+                                per question</label>
+                            <select class="form-control" ng-model="duration" required>
+                                <option disabled hidden value="">Duration per second</option>
+                                <option>5</option>
+                                <option>10</option>
+                                <option>20</option>
+                                <option>30</option>
+                                <option>40</option>
+                                <option>50</option>
+                                <option>60</option>
+                                <option>120</option>
+                            </select>
+                        </div>
+                        <!-- DURATION -->
+                    </div>
+                    <!--PASSING RATE-->
+                    <div class="mb-3">
+                        <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Passing
+                            Rate Percentage</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" id="text_title" class="form-control" numbers-only="numbers-only" name="passingRate"
+                                ng-minlength="0" ng-maxlength="3" ng-model="passingRate" onblur="hideMe('#text_feedback-title');" required>
+                            <div class="text-remaining-indicator align-self-center" id="text_feedback-title"></div>
+                        </div>
+                    </div>
+                    <!-- END PASSSING RATE-->
+                    <!-- End Freeflow Selected -->
+                    <!-- End Quiz Mode -->
+
+                    <!-- Quiz Tags -->
+                    <div class="form-group">
+                        <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Tags</label>
+                        <div class="tags-input" data-name="tags-input">
+                            <input type="hidden" name="tags-input" id="addQ-hidden-input">
+                            <input type="text" class="form-control main-input d-inline-block w-50" id="addQ-main-input"
+                                onkeypress="addTag(event, this);">
+                        </div>
+                    </div>
+                    <!-- End Quiz Tags -->
+
+                    <div class="form-group text-right">
+                        <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" type="submit" data-dismiss="modal"
+                            ng-disabled="sform.$invalid" ng-click="addNewQuiz(MaxID)">
+                            Add New Quiz
+                        </button>
+                        <button class="btn btn-outline-light btn-rounded" type="button" data-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- End Contents -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Edit Quiz Modal -->
+<div class="modal fade" id="editQuiz-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog mb-5">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="modal-title h6 mb-0">Edit Quiz</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Contents -->
+            <div class="modal-body p-4">
+                <form name="myForm">
+
+                    <!-- Alert -->
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="error">
+                        All fields are required
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <p ng-show="myForm.quizTitle.$error.minlength" class="alert alert-danger alert-dismissible fade show">Title
+                        must be atleast 5 characters</p>
+                    <p ng-show="myForm.quizTitle.$error.maxlength" class="alert alert-danger alert-dismissible fade show">Title
+                        exceeds to the maximum length</p>
+                    <p ng-show="myForm.description.$error.minlength" class="alert alert-danger alert-dismissible fade show">Description
+                        is too short, minimum length is 10</p>
+                    <p ng-show="myForm.description.$error.maxlength" class="alert alert-danger alert-dismissible fade show">Description
+                        exceeds to the maximum length</p>
+                    <!-- End Alert -->
+
+                    <!-- Quiz Title -->
+                    <div class="mb-3">
+                        <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Quiz
+                            Title</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" id="edit-text_title" class="form-control" placeholder="The Lion King"
+                                name="quizTitle" ng-minlength="5" ng-maxlength="90" ng-model="quizTitle" required>
+                            <div class="text-remaining-indicator align-self-center" id="text_feedback-edit-title"></div>
+                        </div>
+                    </div>
+                    <!-- End Quiz Title -->
+
+                    <!-- Quiz Description -->
+                    <div class="mb-3">
+                        <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Quiz
+                            Description</label>
+                        <div class="input-group input-group-lg">
+                            <textarea type="text" id="edit-text_desc" class="form-control" placeholder="Add a description"
+                                rows="4" name="description" ng-minlength="10" ng-maxlength="250" ng-model="quizDesc" style="height: 100px;" required></textarea>
+                            <div class="text-remaining-indicator align-self-center" id="text_feedback-edit-desc"></div>
+                        </div>
+                    </div>
+                    <!-- End Quiz Description -->
+
+                   <!-- Quiz Image -->
+                    <div class="mb-3">
+                        <label class="d-block small text-uppercase font-weight-bold" style="letter-spacing: 0.1em;">Image</label>
+                        <div class="custom-file">
+                            <input type="file" accept="image/*" class="custom-file-input" file-input="files">
+                            <label class="custom-file-label">Choose image</label>
+                        </div>
+                    </div>
+                    <!-- End Quiz Image -->
+
+                    <!-- Buttons -->
+                    <div class="form-group text-right">
+                        <button class="btn btn-primary" type="button" ng-disabled="myForm.$invalid" ng-click="updateQuiz(quizID, quizTitle, quizDesc)">
+                            Save
+                        </button>
+                        <button class="btn btn-light" type="button" data-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+                    <!-- End Buttons -->
+
+                </form>
+            </div>
+            <!-- End Contents -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Share Quiz Modal -->
+<div class="modal fade" id="shareQuiz-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog mb-5">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="modal-title h6 mb-0">Share Quiz</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Contents -->
+            <div class="modal-body p-4">
+
+                <!-- Professor List -->
+                <div class="row no-gutters">
+                    <div class="col-12 d-flex flex-column mb-4" ng-repeat="fname in fullname | filter:admSearch">
+                        <div class="d-flex justify-content-between align-items-center mb-0">
+                            <p class="mb-0">{{fname.username}}</p>
+                            <button class="btn btn-success btn-rounded fnt-btn fnt-success" data-toggle="collapse"
+                                data-target="#share_ability_{{fname.id}}">
+                                <i class="far fa-eye"></i>
+                                <span class="d-md-inline-block d-sm-none">SHARE</span>
+                            </button>
+                        </div>
+
+                        <!-- DROPDOWNNNNNNN CHOICES-->
+                        <div class="collapse" id="share_ability_{{fname.id}}" data-parent="#shareQuiz-modal">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="dep_{{fname.id}}" class="custom-control-input" data-toggle="collapse"
+                                    data-target="#confirmation" autocomplete="off" ng-model="shareAbility" ng-value="'1'">
+                                <label class="custom-control-label" for="dep_{{fname.id}}">Deploy only</label>
+                            </div>
+
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="sha_{{fname.id}}" class="custom-control-input" data-toggle="collapse"
+                                    data-target="#confirmation" autocomplete="off" ng-model="shareAbility" ng-value="'2'">
+                                <label class="custom-control-label" for="sha_{{fname.id}}">Shareable</label>
+                            </div>
+
+                            <div class="collapse mt-2" id="confirmation">
+                                <button ng-click="shareQuiz(quiz_id,fname.id,max_id,totality,part_id,quizOwner,shareAbility)"
+                                    class="btn btn-primary btn-rounded fnt-btn fnt-primary">
+                                    <span class="d-md-inline-block d-sm-none">Continue</span>
+                                </button>
+                                <button class="btn btn-outline-light btn-rounded" type="button" data-dismiss="modal">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Professor List -->
+
+        </div>
+        <!-- End Contents -->
+
+    </div>
+</div>
+
+<!--TAGS M0DAL-->
+<div class="modal fade" id="addtoCollection-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h4 class="modal-title text-qznprimary">Add to Collections</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form name="myForm">
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="error">
+                        {{error.error}}
+                        <button type="button" class="close" data-dismiss="alert" ng-click="error = null">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search a folder..." ng-model="searchFolder">
+                    </div>
+
+                    <div id="prof-chk__container">
+                        <div class="custom-control custom-checkbox" ng-repeat="folder in folders | filter: searchFolder"
+                            ng-show="folders">
+                            <!-- Yung id ng prof palagay sa id attribute saka sa for ng label -->
+                            <input type="checkbox" class="custom-control-input" id="{{folder.tag_id}}" checklist-change="addMeToList(tagIDS[$index])"
+                                checklist-model="selected.key" checklist-value="tagIDS[$index]">
+                            <label for="{{folder.tag_id}}" class="custom-control-label">{{folder.tag_name}}</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-click="addTagzzz()">Add</button>
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Quiz Modal -->
+<div class="modal fade" id="deleteQuiz-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content h-auto">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="modal-title h6 mb-0">Move to Bin</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Contents -->
+            <div class="modal-body p-4">
+                <p>The quiz will be moved to Trash Bin.</p>
+
+                <div class="form-group text-right">
+                    <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" type="button" ng-click="deleteQuizForever(quizID)">
+                        Okay
+                    </button>
+                    <button class="btn btn-outline-light btn-rounded" type="button" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+
+            <!-- End Contents -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Play Quiz Modal -->
+<div class="modal fade" id="playQuiz-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog mb-5">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="modal-title h6 mb-0">Sections</h4>
+                <button type="button" class="close" data-dismiss="modal" ng-click="overwrite = false">
+                    <span>&times</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Contents -->
+            <div class="modal-body p-4">
+
+                <!-- Search Bar -->
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search Section">
+                </div>
+
+                <!-- Professor List -->
+                <div class="row no-gutters">
+                    <!-- ng-repeat here -->
+                    <div class="col-12 d-flex flex-column mb-3" ng-repeat="xxx in allHandled">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-0">{{xxx.section}}</p>
+                            <button ng-click="takerChecker(xxx.section_id)" class="btn btn-success btn-rounded fnt-btn fnt-success"
+                                ng-hide="quizoverlap == xxx.section_id">Select</button>
+                        </div>
+
+                        <div class="card card-body border my-3" ng-show="quizoverlap == xxx.section_id">
+                            <p class="mb-0">There is a previous record of this quiz on this section. Overwrite record?</p>
+                            <p class="text-right mb-0">
+                                <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-click="clearPreviousQuiz(xxx.section_id)">Yes</button>
+                                <button class="btn btn-outline-light btn-rounded" ng-click="clearOverlap()">No</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Professor List -->
+
+            </div>
+            <!-- End Contents -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Delete Tag Modal -->
+<div class="modal fade" id="deleteTag-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content h-auto">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="modal-title h6 mb-0">Delete Tag</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Contents -->
+            <div class="modal-body p-4">
+                <p>This will delete the quizzes inside.</p>
+
+                <div class="form-group text-right">
+                    <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" type="button" ng-click="deleteTag()">
+                        Okay
+                    </button>
+                    <button class="btn btn-outline-light btn-rounded" type="button" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- End Contents -->
+
+    </div>
+</div>
+
+
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-3 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">My Quizzen</h3>
+
+            <!-- Button -->
+            <div ng-show="!error" class="d-flex mr-3">
+                <div class="input-group mx-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;"
+                        placeholder="Search quiz..." ng-model="admSearch">
+                </div>
+
+                <button ng-click="getQuizID(quizInfo[0].MaxID)" class="btn btn-primary btn-rounded fnt-btn fnt-primary px-3"
+                    data-toggle="modal" data-target="#newQuiz-modal">
+                    <i class="far fa-plus-square"></i> Add New Quiz
+                </button>
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <!-- Folder -->
+        <div class="w-lg-95 mx-auto" ng-show="!error">
+
+            <!-- Folder Title -->
+            <div class="d-flex mx-3 justify-content-between align-items-center">
+                <label class="h6 d-block text-uppercase small text-secondary font-weight-bold" style="letter-spacing: 0.1em;">Folders</label>
+                <div class="mb-2">
+                    
+                </div>
+            </div>
+
+            <!-- Folders -->
+            <div class="card-deck mx-0 d-block d-md-flex">
+                <div class="card mb-1 tagCon" style="max-width: calc(33.33% - 2rem); width: calc(33.33% - 2rem);"
+                    ng-repeat="folder in folders | filter: admSearch">
+                    <div class="card-body py-2 px-3 w-100 position-relative">
+                        <a href="#!/viewByTag/{{folder.tag_name}}/{{folder.tag_id}}">
+                            <div class="media">
+                                <i class="fas fa-folder text-secondary"></i>
+                                <div class="media-body">
+                                    <p class="h6 mb-0 h5 ml-2" style="text-overflow: ellipsis;"> {{folder.tag_name}}</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Delete -->
+                        <a href="#" target="_self" data-toggle="modal" data-target="#deleteTag-modal" class="hiddenDel"
+                            ng-click="passTagID(folder.tag_id)">
+                            <div class="deleteTag p-2">
+                                <i class="far fa-trash-alt text-danger"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Folders -->
+
+        <!-- Quizzes -->
+        <div class="w-lg-95 mx-auto mt-4">
+
+            <!-- Quiz Label -->
+            <label class="h6 mx-3 d-block text-uppercase small text-secondary font-weight-bold" ng-show="!error" style="letter-spacing: 0.1em;">Quizzes</label>
+
+            <!-- Quizzes -->
+            <div class="row no-gutters card-deck">
+                <div class="col-4 card mb-4" style="max-width: calc(33.33% - 2rem); width: calc(33.33% - 2rem);"
+                    ng-repeat="info in filterQuiz = (quizInfo | filter: admSearch) | limitTo:3:3*(page-1)">
+                    <a ng-href="#!/viewparts/{{info.quizID}}/{{info.part_type}}">
+                        <img src="{{info.filepath}}" alt="{{info.filepath}}" class="card-img-top">
+                    </a>
+                    <div class="card-body px-3 pt-2 pb-0">
+
+                        <!-- Dropdown -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="d-block text-muted">{{info.date_created}}</small>
+
+                            <div class="position-relative">
+                                <div class="dropdown">
+                                    <button class="btn btn-sm dropdown-toggle btn-rounded border" data-toggle="dropdown"
+                                        data-offset="0,5" style="background-color: transparent;"><i class="fas fa-ellipsis-h"></i></button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+
+                                        <!-- Dropdown Options -->
+                                        <button ng-if="info.capability != '1'" ng-click="getQuizData(info.quizID)"
+                                            data-toggle="modal" data-target="#editQuiz-modal" class="dropdown-item">
+                                            <i class="far fa-edit"></i> Edit
+                                        </button>
+
+                                        <button ng-click="getQuizData(info.quizID)" data-toggle="modal" data-target="#deleteQuiz-modal"
+                                            class="dropdown-item">
+                                            <i class="far fa-trash-alt"></i> Move to Trash
+                                        </button>
+
+                                        <a ng-if="info.capability != '1'" ng-href="#!/published/{{info.quizID}}/{{info.part_type}}"
+                                            class="dropdown-item">
+                                            <i class="far fa-arrow-alt-circle-up"></i> Publish
+                                        </a>
+
+                                        <button ng-if="info.capability != '1'" ng-init="adminList()" ng-click="getQuizData(info.quizID,info.PartID)"
+                                            data-toggle="modal" data-target="#shareQuiz-modal" class="dropdown-item">
+                                            <i class="far fa-share-square"></i> Share
+                                        </button>
+                                        <button ng-init="adminList()" ng-click="passQuizID(info.quizID)" data-toggle="modal"
+                                            data-target="#addtoCollection-modal" class="dropdown-item">
+                                            <i class="far fa-share-square"></i> Add to collection</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Dropdown -->
+
+                        <!-- Title -->
+                        <h5 class="font-weight-bold text-secondary mb-0" style="display: block; line-clamp: 2; overflow: hidden; text-overflow: ellipsis;">
+                            <a ng-href="#!/viewparts/{{info.quizID}}/{{info.part_type}}" style="min-height: 1.75rem; max-height: 3.5rem; font-size: 1.125rem; line-height: 1.75rem; display: block; text-overflow: ellipsis;"
+                                class="text-dark"><span class="text-white rounded px-1" style="background-color: #4ddab4;"
+                                    data-toggle="tooltip" data-placement="top" title="Segments">S</span>
+                                {{info.quizTitle}}</a>
+                        </h5>
+                        <!-- End Title -->
+
+                        <!-- Owner -->
+                        <small ng-if="info.quizOwner != ''">
+                            <span class="text-secondary">Shared by: </span> {{info.quizOwner}}
+                        </small>
+                        <!-- End Owner -->
+                    </div>
+
+                    <div class="card-footer bg-white border-top-0 pb-3">
+                        <button class="btn btn-success btn-block btn-rounded fnt-btn fnt-success" style="bottom: 0; left: 0;"
+                            data-toggle="modal" data-target="#playQuiz-modal" ng-click="searchHandled(info.quizID)">
+                            <i class="far fa-play-circle"></i> Play
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container h-100" ng-show="error">
+                <!-- Empty List -->
+                <div class="w-lg-95 mx-auto d-flex justify-content-center align-items-center h-100">
+                    <div class="text-center">
+                        <img src="../admin/svg/bill.svg" width="128" height="128" class="img-fluid mb-2">
+                        <h4 class="mb-3">You don't have any quiz yet.</h4>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#newQuiz-modal">
+                            <i class="far fa-plus-square"></i> Add a Quiz!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Quizzes -->
+
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterQuiz.length" ng-model="page" items-per-page="3" max-size="5" class="pagination-md justify-content-center"
+            boundary-links="true" force-ellipses="true" ng-show="filterQuiz.length > 0" ng-change="pageChanged()"></ul>
+
+    </div>
+
+
+
+</main>

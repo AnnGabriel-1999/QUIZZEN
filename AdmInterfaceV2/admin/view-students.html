@@ -1,0 +1,86 @@
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-0 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">{{prefix}} {{section}} Students</h3>
+
+            <div class="mr-3">
+                <div class="input-group mx-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;"
+                        placeholder="Search student..." ng-model="admSearch">
+                    &emsp;<button class="btn btn-primary btn-rounded fnt-btn fnt-primary px-3" ng-click="getQuizTaken()">QUIZ
+                        TAKEN</button>
+                    &emsp;<button class="btn btn-primary btn-rounded fnt-btn fnt-primary px-3" ng-click="printOfficial()">PRINT
+                        OFFICIAL LIST</button>
+                </div>
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <!-- Breadcrumb -->
+        <div class="w-lg-95 mx-auto mb-3">
+            <nav class="mx-3">
+                <ol class="breadcrumb px-0">
+                    <li class="breadcrumb-item">
+                        <a href="#">Courses</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#"> Handled Sections</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        {{prefix}} {{section}}
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End Breadcrumb -->
+
+        <div class="w-lg-95 mx-auto">
+            <!-- Section Label -->
+            <label class="h6 mx-3 text-secondary d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Students</label>
+
+            <!-- Section -->
+            <div class="row no-gutters card-deck d-block d-md-flex">
+                <div class="col-4 card mb-4" ng-repeat="x in filterStudent = (handledStudents | filter : admSearch) | limitTo:3:3*(page-1)">
+
+
+                    <div class="card-body p-4 text-center">
+                        <div>
+                            <div class="position-relative u-lg-avatar mx-auto mb-3">
+                                <img src="../admin/images/new hero claude mobile legends.jpg" alt="{{x.fname +' '+x.mname+' '+x.lname}}"
+                                    class="u-lg-avatar rounded-circle">
+                            </div>
+                            <span class="u-label u-label--sm u-label--success mb-3">ACTIVE</span>
+                            <h5 class="mb-1">{{x.fname +' '+x.mname+' '+x.lname}}</h5>
+                            <p class="text-secondary">{{x.student_id}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- End Students -->
+
+            <div class="container h-100" ng-show="error">
+                <!-- Empty List -->
+                <div class="w-lg-95 mx-auto d-flex justify-content-center align-items-center h-100">
+                    <div class="text-center">
+                        <img src="../admin/svg/town.svg" width="128" height="128" class="img-fluid mb-2">
+                        <h4 class="mb-3">No students.</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <ul uib-pagination total-items="filterStudent.length" ng-model="page" items-per-page="6" max-size="7" class="pagination-md justify-content-center"
+            boundary-links="true" force-ellipses="true" ng-show="filterStudent.length > 0" ng-change="pageChanged()"></ul>
+    </div>
+</main>

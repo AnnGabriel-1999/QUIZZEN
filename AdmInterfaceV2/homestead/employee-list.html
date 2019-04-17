@@ -1,0 +1,387 @@
+<!-- Employee Info Modal -->
+<div class="modal fade" id="employeeInfo-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h4 class="modal-title text-qznprimary">Instructor Information</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <i class="far fa-user-circle text-secondary fa-5x"></i>
+                </div>
+
+                <p><span class="font-weight-bold">Employee ID:</span> {{empID}}</p>
+                <p><span class="font-weight-bold">Name:</span> {{empName}}</p>
+                <p><span class="font-weight-bold">Courses Handled:</span>
+                    <!-- <select ng-repeat="curse in coursesHandled">
+                        <option>{{curse[0].course}}</option>
+                    </select> -->
+                    <label ng-repeat="course in coursesHandled">
+                        {{course.course}}
+                    </label>
+
+                </p>
+                <p><span class="font-weight-bold">Sections Handled:</span> {{sec}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Close</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Instr Modal -->
+<div class="modal fade" id="editInstr-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="modal-title h6 mb-0">Edit Instructor Details</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Contents -->
+            <div class="modal-body p-4">
+                <form name="myForm">
+
+                    <!-- Alert -->
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="error">
+                        All fields are required
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <p class="alert alert-danger alert-dismissible fade show" ng-show="myForm.empID.$error.maxlength">Employee
+                        has a valid length of 10 only</p>
+                    <p class="alert alert-danger alert-dismissible fade show" ng-show="myForm.first.$error.pattern">
+                        First Name has a special character
+                    </p>
+                    <p class="alert alert-danger alert-dismissible fade show" ng-show="myForm.mid.$error.pattern">
+                        Middle Name has a special character
+                    </p>
+                    <p class="alert alert-danger alert-dismissible fade show" ng-show="myForm.last.$error.pattern">
+                        Last Name has a special character
+                    </p>
+                    <!-- End Alert -->
+
+                    <div class="form-group">
+                        <input type="text" name="empID" min-length="10" max-length="10" numbers-only="numbers-only"
+                            class="form-control" ng-model="empID" placeholder="Employee ID" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="first" ng-pattern="/^[a-zA-Z ]*$/" ng-model="fname"
+                            placeholder="First Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="mid" ng-pattern="/^[a-zA-Z ]*$/" ng-model="mname"
+                            placeholder="Middle Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="last" ng-pattern="/^[a-zA-Z ]*$/" ng-model="lname"
+                            placeholder="Last Name" required>
+                    </div>
+
+                    <div class="text-right">
+                        <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-disabled="myForm.$invalid" data-dismiss="modal" ng-click="editAdmin(empID)">Save
+                            Changes</button>
+                            <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- End Contents -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<!-- Import from CSV modal -->
+<div class="modal fade" id="importCSV-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h4 class="modal-title text-qznprimary">Import from Excel</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span ng-click="clearResponse()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div ng-show="trouble" style="color: red;">
+                    <div ng-show="trouble.duplicate.length != 0">
+                    Theres a duplication of data on line(s):
+                    <b ng-repeat="x in trouble.duplicate">{{x}} </b>
+
+                    </div>
+
+                    <div ng-show="trouble.wrongInput.length != 0">
+                        Please Provide all data needed on lines(s):
+                        <b ng-repeat="x in trouble.wrongInput">{{x}} </b>
+                        
+                    </div>
+
+                    <div ng-show="trouble.missingData.length != 0">
+                        Invalid Employee ID on line(s):
+                        <b ng-repeat="x in trouble.missingData">{{x}} </b>
+                        
+                    </div>
+                </div>
+                <b style="color: green;">{{success}}</b>
+                <b style="color: red;">{{error}}</b>
+                <p style="cursor: pointer;"><a href="../src/assets/csvformats/QuizzenAdminUploadFormat.csv" download>Download our Excel Template</a></p>
+                <p>or</p>
+                <p class="m-0">
+                    <input type="file" id="file" class="hiddenFile" file-input="files">
+                    <label for="file" id="filezzz" class="btn btn-primary btn-rounded fnt-btn fnt-primary" style="cursor: pointer;" ng-click="clearResponse()">Choose a file</label>
+                </p>
+            </div>
+            <div class="modal-footer border-top-0">
+                <button type="button" class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-click="uploadCSV()">Upload</button>
+                <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Employee Modal -->
+<div class="modal fade" id="employeeNew-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h4 class="modal-title text-qznprimary">Instructor Information</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="alert alert-danger alert-dismissible fade show" ng-show="error">
+                {{error}}
+                <button type="button" class="close" data-dismiss="alert" ng-click="error = null">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form name="myForm">
+                    <p ng-show="myForm.empID.$error.maxlength" class="alert alert-danger alert-dismissible fade show">
+                        Employee ID has a maximum length of 10 only
+                    </p>
+                    <p ng-show="myForm.fname.$error.pattern" class="alert alert-danger alert-dismissible fade show">
+                        First Name has a special character
+                    </p>
+                    <p ng-show="myForm.mname.$error.pattern" class="alert alert-danger alert-dismissible fade show">
+                        Middle Name has a special character
+                    </p>
+                    <p ng-show="myForm.lname.$error.pattern" class="alert alert-danger alert-dismissible fade show">
+                        Last Name has a special character
+                    </p>
+                    <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Employee
+                            ID</label>
+                        <div class="input-group input-group-lg">
+                            <input numbers-only="numbers-only" name="empID" ng-minlength="10" ng-maxlength="10" type="text"
+                                class="form-control" ng-model="empID" tabindex="1" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">First
+                            Name</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" name="fname" ng-pattern="/^[a-zA-Z ]*$/" class="form-control"
+                                 ng-model="fname" tabindex="1" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Middle
+                            Name</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" name="mname" ng-pattern="/^[a-zA-Z ]*$/" class="form-control"
+                                 ng-model="mname" tabindex="1">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Last
+                            Name</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" name="lname" ng-pattern="/^[a-zA-Z ]*$/" class="form-control"
+                                 ng-model="lname" tabindex="1" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-disabled="myForm.$invalid" data-dismiss="modal" ng-click="addAdmin()">Add</button>
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+
+    <!-- With data results -->
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100" ng-show="admins">
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-3 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">Instructors</h3>
+
+            <!-- Button -->
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- <p class="m-0">
+                    <input type="file" id="file" class="hiddenFile" file-input="files">
+                    <label for="file" class="btn btn-primary m-0">Upload CSV</label>
+                </p> -->
+                <button class="btn btn-primary ml-1 btn-rounded fnt-btn fnt-primary" data-toggle="modal" data-target="#importCSV-modal">
+                    <i class="far fa-plus-square"></i> Use Excel
+                </button>
+                <button class="btn btn-primary ml-1 btn-rounded fnt-btn fnt-primary" data-toggle="modal" data-target="#employeeNew-modal">
+                    <i class="far fa-plus-square"></i> Add Instructor
+                </button>
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <div class="w-lg-95 mx-auto mb-2">
+            <div class="bg-white p-4">
+
+                <!-- Activity Menu -->
+                <div class="row justify-content-between align-items-sm-center">
+                    <div class="col-md-5 mb-sm-2">
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="d-flex">
+                            <!-- -->
+
+                            <!-- Search -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                                        <span class="fas fa-search"></span>
+                                    </span>
+                                </div>
+
+                                <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;"
+                                    ng-model="search" placeholder="Search instructor...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Activity Menu -->
+
+                <hr class="my-4" ng-show="admins">
+
+                <!-- Employee List Activity Table -->
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr class="text-uppercase font-size-14" role="row">
+                                <th style="width: 129px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Employee ID
+                                    </div>
+                                </th>
+                                <th style="width: 234px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Instructor Name
+                                    </div>
+                                </th>
+
+                                <th style="width: 173px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Status
+                                    </div>
+                                </th>
+
+
+                                <th style="width: 173px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Actions
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- request in filterData = (requests | filter : {wname: searchRequest}) | limitTo:4:4*(page-1) -->
+
+                            <tr ng-repeat="admin in filterAdmin = (admins | filter: search ) | limitTo:4:4*(page-1)"
+                                ng-show="admins">
+                                <td class="align-middle text-qznprimary">{{admin.employee_id}}</td>
+                                <td class="align-middle text-secondary">{{admin.fname}} {{admin.mname}} {{admin.lname}}</td>
+                                <td class="align-middle text-secondary">{{admin.status}}</td>
+                                <td class="align-middle text-primary">
+                                   
+                                    <button class="btn btn-warning ml-1 btn-rounded fnt-btn fnt-warning w-auto" data-toggle="modal" data-target="#editInstr-modal"
+                                        ng-click="getInstrData(admin.employee_id)">
+                                        <i class="far fa-edit"></i></i> Edit
+                                    </button>
+                                </td>
+
+                            </tr>
+                            <tr ng-show="!filterAdmin.length">
+                                <td colspan="4">
+                                    No results found.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Employee List Activity Table -->
+
+            </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterAdmin.length" ng-model="page" items-per-page="4" max-size="5" class="pagination-md justify-content-center"
+            boundary-links="true" force-ellipses="true" ng-show="filterAdmin.length > 0" ng-change="pageChanged()"></ul>
+
+        <!-- <ul uib-pagination total-items="filterData.length" ng-model="page" items-per-page="4" max-size="5"
+        class="pagination-md justify-content-center" boundary-links="true"
+        force-ellipses="true" ng-show="filterData.length > 0"  ng-change="pageChanged()"></ul> -->
+
+    </div>
+
+    <!-- No data -->
+    <div class="container h-100" ng-show="error">
+        <!-- Empty List -->
+        <div class="w-lg-95 mx-auto d-flex justify-content-center align-items-center h-100">
+            <div class="text-center">
+                <img src="../admin/svg/bill.svg" width="128" height="128" class="img-fluid mb-2">
+                <h4 class="mb-3">You haven't uploaded any list yet.</h4>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#employeeNew-modal">
+                    <i class="far fa-plus-square"></i> Add Manually
+                </button>
+                <button class="btn btn-success" data-toggle="modal" data-target="#importCSV-modal">
+                    <i class="fas fa-file-import"></i> Use a Excel File
+                </button>
+            </div>
+        </div>
+    </div>
+</main>

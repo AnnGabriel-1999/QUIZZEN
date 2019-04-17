@@ -1,0 +1,139 @@
+<!-- Message Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h4 class="modal-title text-qznprimary">Message</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">{{putangina}}
+            </div>
+
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Close</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-3 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">Accepted Instructor Request</h3>
+
+
+        </div>
+        <!-- End Title Container -->
+
+        <div class="w-lg-95 mx-auto mb-0">
+            <div class="bg-white p-4">
+
+                <!-- Activity Menu -->
+                <div class="row justify-content-between align-items-sm-center">
+                    <div class="col-md-5 mb-sm-2"></div>
+
+                    <div class="col-md-4">
+                        <div class="d-flex">
+
+                            <!-- Search -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                                        <span class="fas fa-search"></span>
+                                    </span>
+                                </div>
+
+                                <input type="text" ng-model="searchRequest" style="border-radius: 0 50px 50px 0;" class="form-control border-left-0"
+                                    placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Activity Menu -->
+
+                <hr class="my-4">
+
+                <!-- Accepted -->
+
+                    <!-- Accepted Activity Table -->
+                    <div class="table-responsive">
+                        <table class="table table-borderless mb-4">
+                            <thead>
+                                <tr class="text-uppercase font-size-14" role="row" ng-show="sd2">
+                                    <th style="width: 149px;" class="bg-white">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            Employee ID
+                                        </div>
+                                    </th>
+                                    <th style="width: 324px;" class="bg-white">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            Employee Name
+                                        </div>
+                                    </th>
+                                    <th style="width: 206px;" class="bg-white">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            Date Accepted
+                                        </div>
+                                    </th>
+                                    <th style="width: 203px;" class="bg-white">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            Status
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="request in filterData = (requests | filter : searchRequest) | limitTo:4:4*(page-1)"
+                                    ng-show="sd2">
+                                    <td class="align-middle text-qznprimary">{{request.employee_id}}</td>
+                                    <td class="align-middle text-secondary">{{request.fname}} {{request.mname}}
+                                        {{request.lname}}</td>
+                                    <td class="align-middle text-secondary">{{request.date_processed}}</td>
+                                    <td class="align-middle text-success">Accepted</td>
+                                </tr>
+                                <tr ng-show="error2">
+                                    <div class="container h-100" ng-show="error2">
+                                        <!-- Empty List -->
+                                        <div class="w-lg-95 mx-auto d-flex justify-content-center align-items-center h-100">
+                                            <div class="text-center">
+                                                <img src="../admin/svg/bill.svg" width="128" height="128" class="img-fluid mb-2">
+                                                <h4 class="mb-3">No requests for today!</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                                <tr ng-show="!requests.length">
+                                    <td colspan="5">
+                                        No results found.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- End Accepted Activity Table -->
+                <!-- End Accepted -->
+
+            </div>
+
+
+        </div>
+
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterData.length" ng-model="page" items-per-page="4" max-size="5" class="pagination-md justify-content-center"
+            boundary-links="true" force-ellipses="true" ng-show="filterData.length > 0" ng-change="pageChanged()"></ul>
+
+
+    </div>
+
+</main>

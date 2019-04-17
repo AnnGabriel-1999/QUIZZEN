@@ -1,0 +1,12 @@
+this is according to quiz_id, admin_id and part_id
+
+
+select concat(adm.fname, ' ', adm.lname) as 'HostName',
+q.quiz_title as 'Quiz Title', que.question as Question,
+qp.part_title as 'Part Title',
+cho.value as 'Correct Answer'
+from admins adm inner join quizzes q on adm.admin_id = q.admin_id
+inner join questions que on que.quiz_id = q.quiz_id
+inner join quiz_parts qp on qp.quiz_id = q.quiz_id
+inner join answer_choices cho on cho.choice_id = que.answer
+where adm.admin_id = 22 and q.quiz_id = 23 and qp.part_id = 54

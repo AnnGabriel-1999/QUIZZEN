@@ -1,0 +1,48 @@
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+	<div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+
+		<div class="w-lg-95 mx-auto mb-2 d-flex justify-content-between align-items-center">
+			<h3 class="font-weight-bold mb-0 ml-3">Quiz Answeree</h3>
+
+			<div ng-show="!error" class="d-flex mr-3">
+				<button class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-click="printUserAnswers()">Print this report</button>
+			</div>
+		</div>
+
+		<div class="w-lg-95 mx-auto mt-4">
+			<div class="mx-3">
+				<p class="mb-0">Quiz Title: &nbsp;<span class="text-secondary">{{answeree.quiz_title}}</span></p>
+				<p class="mb-0">Student: &nbsp;<span class="text-secondary">{{answeree.fname}} {{answeree.mname}} {{answeree.lname}}</span></p>
+				<p class="mb-0">Student ID: &nbsp;<span class="text-secondary">{{answeree.student_id}}</span></p>
+				<p class="mb-0">Course & Section: &nbsp;<span class="text-secondary">{{answeree.course_prefix}} {{answeree.section}}</span></p>
+			</div>
+		</div>
+
+		<div class="w-lg-95 mx-auto mb-2 mt-3 d-flex justify-content-between align-items-center">
+			<label class="h6 mx-3 d-block text-uppercase small text-secondary font-weight-bold" ng-show="!error" style="letter-spacing: 0.1em;">User Answers</label>
+		</div>
+
+		<div class="w-lg-95 mx-auto mt-1">
+			<table class="table mx-3">
+				<thead>
+					<tr>
+						<th scope="col">Question</th>
+						<th scope="col">Answer</th>
+						<th scope="col">Correctivity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="y in userAnswers">
+						<th scope="row">{{y.question}}</th>
+						<td>{{y.answer}}</td>
+						<td>{{y.value}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+	</div>
+
+</main>

@@ -1,0 +1,4 @@
+
+theApp.controller('pendingCtrl', function($scope, $location, $routeParams){
+	$scope.empID = $routeParams.empID;
+});

@@ -1,0 +1,2 @@
+select s.section_id, s.course_id
+, s.year_level, (SELECT COUNT(student_id) FROM students where section_id = s.section_id) as 'students' from sections s

@@ -1,0 +1,94 @@
+<!-- Redesign -->
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="mb-7">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg">
+
+        <!-- Title Container -->
+        <div class="w-lg-90 mx-auto mb-0 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">Published Segment</h3>
+
+            <!-- Button -->
+            <div>
+                <!-- <button class="btn btn-primary">
+                    <i class="far fa-plus-square"></i> Unknown Button
+                </button> -->
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <div class="w-lg-90 mx-auto mb-0">
+            <!-- Breadcrumb -->
+            <nav>
+                <ol class="breadcrumb px-0 mx-3 mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="#">My Quizzen</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#">{{quizTitle}}</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Segment Freeflow
+                    </li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="w-lg-90 mx-auto mb-5">
+
+            <div class="accordion w-100" id="segmentsAccordion">
+                <div ng-repeat="part in parts">
+                    <div class="card p-3 mb-2 mx-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span ng-style="set_color(part.TypeID)" class="u-label u-label--sm u-label--primary">{{part.Type}}</span>
+                                <h3 class="h5 ml-1 mt-1">{{part.PartTitle}}</h4>
+                            </div>
+                            <div>
+                                <button class="btn btn-qznsuccess btn-rounded fnt-btn fnt-success" data-toggle="collapse" data-target="#collapse_{{part.PartID}}_{{part.TypeID}}"
+                                    data-ng-disabled="checkQuestions(part.TotalQs)" ng-click="view(part.PartID,part.TypeID)">Show</button>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapse_{{part.PartID}}_{{part.TypeID}}" data-parent="#segmentsAccordion">
+                            <div class="card-body">
+
+                                <hr class="my-4">
+
+                                <div ng-repeat="question in questions">
+                                    <h5 class="m-0">Question: {{question.Question}}</h5>
+
+                                    <!--MULTIPLE CHOICE-->
+                                    <div ng-show="validate_1" class="mb-2">
+                                        <p class="m-0"> A. {{question.a}} </p>
+                                        <p class="m-0"> B. {{question.b}} </p>
+                                        <p class="m-0"> C. {{question.c}} </p>
+                                        <p class="m-0"> D. {{question.d}} </p>
+                                    </div>
+
+                                    <!--TRUE OR FALSE-->
+                                    <div ng-show="validate_2" class="mb-2">
+                                        <p class="m-0"> True </p>
+                                        <p class="m-0"> False</p>
+                                    </div>
+                                     <!--ARRANGE THE SEQUENCE-->
+                                    <div ng-show="validate_3" class="mb-2">
+                                        <p class="m-0"> 1st: {{question.a}} </p>
+                                        <p class="m-0"> 2nd: {{question.b}} </p>
+                                        <p class="m-0"> 3rd: {{question.c}} </p>
+                                        <p class="m-0"> 4th: {{question.d}} </p>
+                                    </div>
+
+                                    <!--GUESS WORD -->
+                                    <div ng-show="validate_4" class="mb-2">
+                                        <p class="m-0"> S_MP__</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

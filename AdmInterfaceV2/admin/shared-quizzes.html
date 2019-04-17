@@ -1,0 +1,101 @@
+<!-- Redesign -->
+<main class="h-100" style="margin-left: 270px;">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-3 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">Shared Quizzes</h3>
+
+            <div class="mr-3">
+                <div class="input-group mx-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;" placeholder="Search quiz..." ng-model="admSearch">
+                </div>
+            </div>
+            <!-- Button -->
+
+        </div>
+        <!-- End Title Container -->
+
+        <!-- Quizzes -->
+        <div class="w-lg-95 mx-auto mt-4">
+
+            <!-- Shared Quizzes -->
+            <div class="bg-white p-4" ng-show="!error">
+
+                <!-- Shared Quizzes Activity Table -->
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-4">
+                        <thead>
+                            <tr class="text-uppercase font-size-14" role="row">
+                                <th style="width: 179px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Quiz Name
+                                    </div>
+                                </th>
+                                <th style="width: 154px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Date Shared
+                                    </div>
+                                </th>
+                                <th style="width: 206px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Shared By
+                                    </div>
+                                </th>
+                                <th style="width: 160px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Quiz Type
+                                    </div>
+                                </th>
+                                <th style="width: 160px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Capability
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="share in filterShare = (shares | filter: admSearch) | limitTo:6:6*(page-1)">
+                                <td class="align-middle text-qznprimary">{{share.QuizTitle}}</td>
+                                <td class="align-middle text-secondary">{{share.DateShared}}</td>
+                                <td class="align-middle text-secondary">{{share.quizOwner}}</td>
+                                <td class="align-middle text-secondary">{{share.QuizType}}</td>
+                                <td ng-if="share.capability == 1" class="align-middle text-secondary">DEPLOY-ONLY</td>
+                                <td ng-if="share.capability == 2" class="align-middle text-secondary">SHARE-RABLE</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Employee List Activity Table -->
+
+            </div>
+
+            <div class="container h-100" ng-show="error">
+                <!-- Empty List -->
+                <div class="w-lg-95 mx-auto d-flex justify-content-center align-items-center h-100">
+                    <div class="text-center">
+                        <img src="../admin/svg/bill.svg" width="128" height="128" class="img-fluid mb-2">
+                        <h4 class="mb-3">You haven't receive other quiz from your peers yet.</h4>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- End Quizzes -->
+
+        <!-- Pagination -->
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterShare.length" ng-model="page" items-per-page="6" max-size="7" class="pagination-md justify-content-center"
+            boundary-links="true" force-ellipses="true" ng-show="filterQuiz.filterShare > 0" ng-change="pageChanged()"></ul>
+
+
+    </div>
+</main>

@@ -1,0 +1,92 @@
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-3 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">Quizzes taken by {{section}}</h3>
+
+            <div class="d-flex mr-3">
+                <div class="input-group mx-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control border-left-0" placeholder="Search quiz..." style="border-radius: 0 50px 50px 0;" ng-model="admSearch">
+                </div>
+
+                <button ng-click="printQuizTaken()" class="btn btn-primary btn-rounded fnt-btn fnt-primary">PRINT REPORT</button>
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <div class="w-lg-95 mx-auto mb-5" >
+            <div class="bg-white p-4">
+
+                <!-- Request Activity Table -->
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-4">
+                        <thead>
+                            <tr class="text-uppercase font-size-14" role="row">
+                                <th style="width: 350px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Quiz Title
+                                    </div>
+                                </th>
+                                <th style="width: 250px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Date
+                                    </div>
+                                </th>
+                                <th style="width: 220px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Room ID
+                                    </div>
+                                </th>
+                                <th style="width: 100px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Action
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>                        
+                        <tbody>
+                            <tr ng-repeat="x in quizTaken">
+                                <td class="align-middle text-qznprimary">{{x.quiz_title}}</td>
+                                <td class="align-middle text-secondary">{{x.time_started}}</td>
+                                <td class="align-middle text-secondary">{{x.room_id}}</td>
+                                <td class="align-middle text-secondary">
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="0,10"
+                                            style="background-color: transparent;"><i class="fas fa-ellipsis-h"></i></button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+
+                                            <!-- Dropdown Options -->
+                                            <button class="dropdown-item w-100" ng-click="quizSummary(x.quiz_id , x.room_id)">Quiz Summary Print</button>
+                                            <button class="dropdown-item w-100" ng-click="quizPassers(x.quiz_id , x.room_id)">Passers</button>
+                                            <button class="dropdown-item w-100" ng-click="quizFailures(x.quiz_id , x.room_id)">Failures</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                              
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Request Activity Table -->
+
+            </div>
+
+        </div>
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterSection.length" ng-model="page" items-per-page="5" max-size="5" class="pagination-md justify-content-center"
+            boundary-links="true" force-ellipses="true" ng-show="filterSection.length > 0" ng-change="pageChanged()"></ul>
+    </div>
+
+</main>

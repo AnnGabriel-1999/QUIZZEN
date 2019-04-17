@@ -1,0 +1,104 @@
+<!-- Redesign -->
+<main class="h-100 bg-primary">
+
+    <div class="container-fluid p-0 bg-primary position-relative h-100">
+
+        <div id="particles-js5" style="position: absolute; width: 100%; height: 98%;"></div>
+
+        <div class="row no-gutters bg-primary">
+
+            <!-- Logo -->
+            <div class="col-12 my-3 text-center">
+                <img src="../admin/images/quizzen-logo-inverted.png" height="128" alt="Quizzen Logo">
+            </div>
+
+            <!-- Title -->
+            <div class="col-12 mb-4 text-center">
+                <h2 class="text-white">Quiz Title Here {{quizDetails.quiz_title}}</h2>
+            </div>
+
+            <!-- Modes -->
+            <div class="col-12 justify-content-center">
+
+                <div class="row no-gutters justify-content-center">
+                    <div class="col-4 mr-2">
+                        <div class="card p-4">
+                            <div class="card-body text-center">
+                                <img src="../admin/images/thinking.png" class="mb-3" alt="Single Player">
+                                <h4>Player vs Player</h4>
+                                <button class="btn btn-success btn-block btn-lg" ng-click="play('S')"> Play</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4 ml-2">
+                        <div class="card p-4">
+                            <div class="card-body text-center">
+                                <img src="../admin/images/idea.png" class="mb-3" alt="Multiplayer Player">
+                                <h4>Team vs Team</h4>
+                                <button class="btn btn-success btn-block btn-lg" ng-click="play('T')"> Play</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Game Options -->
+                    <div class="col-8 my-2">
+                        <a data-toggle="collapse" class="btn btn-block" href="#gameOptions" target="__self">
+                            <div class="card card-body">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-cog fa-2x mr-2"></i> <h4 class="mb-0">Game Options</h4>
+                                </div>                                
+                            </div>
+                        </a>
+
+                        <div class="collapse rounded px-3" id="gameOptions">
+                            <ul class="list-group">
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Combo / Streak
+                                    <!-- Kada <li>, 1 option -->
+                                    <input type="checkbox" ng-model="game_mode.combo">
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Randomize Questions
+                                    <!-- Kada <li>, 1 option -->
+                                    <input type="checkbox" ng-model="game_mode.randQ">
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Case Sensitive
+                                    <!-- Kada <li>, 1 option -->
+                                    <input type="checkbox" ng-model="game_mode.caseSensitive">
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Randomize Choices
+                                    <!-- Kada <li>, 1 option -->
+                                    <input type="checkbox" ng-model="game_mode.randC">
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Automatically move through questions
+                                    <!-- Kada <li>, 1 option -->
+                                    <input type="checkbox" ng-model="game_mode.autoMove">
+                                </li>
+
+                                <!-- <li>
+                                    <b>{{formData}}</b>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+
+<!-- Particles.js -->
+<script type="text/javascript" src="../src/plugins/particles/particles5.js"></script>
+<script type="text/javascript" src="../src/plugins/particles/app5.js"></script>

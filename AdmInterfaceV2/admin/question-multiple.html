@@ -1,0 +1,78 @@
+<main class="h-100">
+    <div class="container-fluid px-0 h-100">
+
+        <div class="d-flex flex-column h-100">
+
+            <!-- Header -->
+            <div class="w-100 bg-white shadow-sm position-fixed" style="height: 67px; z-index: 99;">
+                <div class="container-fluid h-100">
+                    <div class="row px-5" style="height: 67px;">
+                        <!-- Quiz Name -->
+                        <div class="col-sm-3 col-md-3 d-flex justify-content-start align-items-center h-100">
+                            <div class="d-flex align-items-center">
+                                {{quizAssets.quiz_title}}
+                            </div>
+                        </div>
+
+                        <!-- Timer -->
+                        <div class="col-sm-6 d-flex col-md-6 bg-white justify-content-center align-items-center position-relative h-100">
+                            <h4 class="mb-0 text-success">{{countScope}}s</h4>
+                        </div>
+
+                        <!-- Student Answers -->
+                        <div class="col-sm-3 col-md-3 d-flex justify-content-end align-items-center h-100">
+                            <div class="d-flex align-items-center">
+                                {{doneStudentslen}} answers
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Contents -->
+            <div style="height: 100vh;">
+                <!-- Question -->
+                <div class="container" style="height: 72vh; margin: 14vh auto;">
+                    <div class="row" style="height: 72vh; min-height: 60vh;">
+
+                        <!-- Question -->
+                        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                            <div class="text-center">
+                                <img src="{{imahe}}" alt="Claude" class="img-fluid rounded w-50 h-50 mb-3">
+                                <h4>{{localQuestion}}</h4>
+                            </div>
+                        </div>
+
+                        <!-- Choices -->
+                        <div class="col-md-6 p-6">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="w-100">
+                                    <button class="btn btn-primary btn-block btn-lg mt-2 p-3 text-left">
+                                        <!-- <img src="../admin/svg/like.svg" alt="Heart" class="mr-2" width="24" height="24"> -->
+                                        {{choices.choice1}}
+                                    </button>
+                                    <button class="btn btn-danger btn-block btn-lg mt-2 p-3 text-left">
+                                        <!-- <img src="../admin/svg/clubs.svg" alt="Clubs" class="mr-2" width="24" height="24"> -->
+                                        {{choices.choice2}}
+                                    </button>
+                                    <button class="btn btn-success btn-block btn-lg mt-2 p-3 text-left">
+                                        <!-- <img src="../admin/svg/ace-of-spades.svg" alt="Spades" class="mr-2" width="24" height="24"> -->
+                                        {{choices.choice3}}
+                                    </button>
+                                    <button class="btn btn-warning btn-block btn-lg mt-2 p-3 text-left">
+                                        <!-- <img src="../admin/svg/diamond-symbol.svg" alt="Diamond" class="mr-2" width="24" height="24"> -->
+                                        {{choices.choice4}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</main>

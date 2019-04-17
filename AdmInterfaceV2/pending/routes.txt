@@ -1,0 +1,26 @@
+add this on angular_controller.js
+
+.when('/pending/:empID', {
+			resolve:{
+				"check": function($location,$localStorage){
+						if ($localStorage.loggedIn){
+								$location.path("/myquizzen");
+						}
+				 }
+			},
+			templateUrl: 'pending.html',
+			controller: 'pendingCtrl'
+		})
+
+
+.when('/wait', {
+			resolve:{
+				"check": function($location,$localStorage){
+						if ($localStorage.loggedIn){
+								$location.path("/myquizzen");
+						}
+				 }
+			},
+			templateUrl: 'wait-admin.html',
+		})
+

@@ -1,0 +1,70 @@
+<!-- Modal -->
+<!-- Import from CSV modal -->
+<div class="modal fade" id="importCSV-modal" tabindex="-1" role="dialog" ng-click="clearResponse()">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h4 class="modal-title text-qznprimary">Import from Excel</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span ng-click="clearResponse()">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <b style="color: red;">{{csverror.error}}</b>
+                <b style="color: green;">{{csvsuccess.success}}</b>
+                <p style="cursor: pointer;"><a href="../src/assets/csvformats/QuizzenGuesstheWordFormat.csv" download>Download our CSV Template</a></p>
+                <p>or</p>
+                <p class="m-0">                    
+                    <input type="file" id="file" class="hiddenFile" file-input="files">
+                    <label for="file" id="filezzz" class="btn btn-primary" ng-click="clearResponse()" style="cursor: pointer;">Choose a file</label>
+                </p>                 
+            </div>
+            <div class="modal-footer border-top-0">
+                <p class="text-secondary m-0 px-3" data-dismiss="modal">Cancel</p>
+                <button type="button" class="btn btn-primary" ng-click="uploadCSV()">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page content -->
+<div id="page-content-wrapper" style="margin-left: 270px;">
+    <div class="container-fluid p-0 h-100">                
+        <div class="row no-gutters">
+            <div class="col-md-6 pt-7 mx-auto">
+                <div class="card">
+                    <div class="card-body pb-2">
+                        <div class="col-md-12 py-3 text-center">
+                            <p class="text-center mb-3 h5">Guess the Word</p>
+                            <form name="myForm" ng-submit="insert()">
+                                <div class="alert alert-danger alert-dismissible fade show" ng-show="error">
+                                    {{error.message}}
+                                    <button type="button" class="close" data-dismiss="alert">
+                                        <span>&times;</span>
+                                    </button>                            
+                                </div>
+                                <input type="file" accept="image/*" file-input="files">
+                                <div class="form-group position-relative">
+                                    <textarea class="form-control" id="text_ques" placeholder="Question" rows="3" ng-model="question" required></textarea>
+                                    <div class="text-remaining-indicator align-self-center" id="text_feedback-ques"></div>
+                                </div>
+
+                                <div class="form-group position-relative">
+                                    <input only-letters-input type="text" id="text_answer" class="form-control" placeholder="Answer" ng-model="answer" required>
+                                    <div class="text-remaining-indicator align-self-center" id="text_feedback-answer"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block btn-rounded fnt-btn fnt-primary" type="button" ng-disabled="myForm.$invalid" ng-click="guessQuestion()">
+                                        <i class="fas fa-plus"></i> Add Question
+                                    </button>
+                                </div>
+                                <a data-toggle="modal" data-target="#importCSV-modal" style="cursor: pointer;"><p class="text-primary">Import from Excel</p></a>
+                            </form>
+                        </div>                                                           
+                    </div>                                    
+                </div>
+            </div>
+        </div>
+    </div>                    
+</div>

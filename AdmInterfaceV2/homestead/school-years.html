@@ -1,0 +1,283 @@
+<!-- New SY Modal -->
+<div class="modal fade" id="newSY-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="h6 mb-0">New Semester</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Alert -->
+            <div class="alert alert-danger alert-dismissible fade show" ng-show="{{syError}}">
+                {{syError}}
+
+            </div>
+            <!-- End Alert -->
+
+            <!-- Contents -->
+            <form name="myForm">
+                <div class="modal-body">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> SY </span>
+                        </div>
+                        <input type="text" name="start" numbers-only="numbers-only" class="form-control" ng-model="start"
+                            ng-keyup="addEnd()" required>
+                        <span ng-show="myForm.start.$error.required">Email is required.</span>
+                        <div class="input-group-append input-group-prepend" required>
+                            <span class="input-group-text"> - </span>
+                        </div>
+                        <input type="text" numbers-only="numbers-only" class="form-control" ng-model="end" disabled>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <p class="text-right">
+                        <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" input type="submit" ng-click="addSY()">Add
+                            School Year</button>
+                        <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit SY modal -->
+<div class="modal fade" id="editSY-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h4 class="modal-title text-qznprimary">Update semester</h4>
+
+            </div>
+            <!-- Alert -->
+            <div class="alert alert-danger alert-dismissible fade show" ng-show="syError">
+                {{syError}}
+
+            </div>
+            <div class="modal-body">
+                <form name="myForm">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> SY </span>
+                        </div>
+                        <input type="text" numbers-only="numbers-only" class="form-control" ng-keyup="addEndUpdate()"
+                            ng-model="start" required>
+                        <div class="input-group-append input-group-prepend">
+                            <span class="input-group-text"> - </span>
+                        </div>
+                        <input type="text" numbers-only="numbers-only" class="form-control" ng-model="end" disabled>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button ng-click="updateSY(start,end,schoolyear_id)" class="btn btn-primary btn-rounded fnt-btn fnt-primary">Save changes</button>
+                    <button class="btn btn-outline-light btn-rounded">Cancel</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Activate confirmation modal -->
+<div class="modal fade" id="activate-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="h6 mb-0">Activate Semester?</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <div class="modal-body">
+                <p>Make the {{semester}} of {{schoolyear}} the current semester?</p>
+            </div>
+
+            <div class="modal-footer border-top-0">
+                <p class="text-right">
+                    <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" data-dismiss="modal" ng-click="activateSY(schoolyear_id)">Confirm</button>
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deactivate-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="h6 mb-0">Deactivate Semester?</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <div class="modal-body">
+                <p>Deactivate {{semester}} of {{schoolyear}}?</p>
+            </div>
+
+            <div class="modal-footer border-top-0">
+                <p class="text-right">
+                    <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" data-dismiss="modal" ng-click="deactivateSY(schoolyear_id)">Confirm</button>
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100" ng-show="sys">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-0 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">School Years</h3>
+
+            <!-- Button -->
+            <div>
+                <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" data-toggle="modal" data-target="#newSY-modal">
+                    <i class="far fa-plus-square"></i> Add School Year
+                </button>
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <!-- Breadcrumb -->
+        <div class="w-lg-95 mx-auto mb-1">
+            <p class="mx-3 mb-0"><span class="font-weight-bold">Active School Year:</span> {{sy[0].semester}}
+                {{sy[0].schoolyear}}</p>
+        </div>
+        <!-- End Breadcrumb -->
+
+        <div class="w-lg-95 mx-auto mb-0">
+            <div class="bg-white p-4">
+
+                <!-- Activity Menu -->
+                <div class="row justify-content-between align-items-sm-center">
+                    <div class="col-md-5 mb-sm-2"></div>
+
+                    <div class="col-md-4">
+                        <div class="d-flex">
+
+
+
+                            <!-- Search -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                                        <span class="fas fa-search"></span>
+                                    </span>
+                                </div>
+
+                                <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;"
+                                    ng-model="searchSY" placeholder="Search school year...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Activity Menu -->
+
+                <hr class="my-4">
+
+                <!-- SY Activity Table -->
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-0">
+                        <thead>
+                            <tr class="text-uppercase font-size-14" role="row">
+                                <th style="width: 150px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        School Year
+                                    </div>
+                                </th>
+                                <th style="width: 154px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Semester
+                                    </div>
+                                </th>
+                                <th style="width: 154px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Active Sections
+                                    </div>
+                                </th>
+                                <th style="width: 173px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Action
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr ng-repeat="syn in filterSY = (sys | filter : searchSY) | limitTo:4:4*(page-1)">
+                                <td class="align-middle text-qznprimary">{{syn.schoolyear}}</td>
+                                <td class="align-middle text-secondary">{{syn.semester}}</td>
+                                <td class="align-middle text-secondary">{{syn.total}} section(s)</td>
+                                <td class="align-middle text-primary">
+                                    <div>
+                                        <button class="btn btn-success w-auto btn-rounded fnt-btn fnt-success" ng-show="!syn.st"
+                                            data-toggle="modal" ng-click="passSYData(syn.schoolyear, syn.semester, syn.schoolyear_id)"
+                                            data-target="#activate-modal">&nbsp;Activate&nbsp;</button>
+                                        <button class="btn btn-danger w-auto btn-rounded fnt-btn fnt-danger" ng-show="syn.st"
+                                            data-toggle="modal" ng-click="passSYData(syn.schoolyear, syn.semester, syn.schoolyear_id)"
+                                            data-target="#deactivate-modal">DeActivate</button>
+                                        <button class="btn btn-warning w-auto btn-rounded fnt-btn fnt-warning px-4"
+                                            ng-click="getSYID(syn.schoolyear_id)" data-toggle="modal" data-target="#editSY-modal"><i
+                                                class="far fa-edit"></i> Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-show="!filterSY.length">
+                                <td colspan="4">
+                                    No results found.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End SY Activity Table -->
+
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterSY.length" ng-model="page" items-per-page="4" max-size="5" class="pagination-md justify-content-center"
+            boundary-links="true" force-ellipses="true" ng-show="filterSY.length > 0" ng-change="pageChanged()"></ul>
+
+    </div>
+
+
+    <div class="container h-100" ng-show="error">
+        <!-- Empty List -->
+        <div class="w-lg-95 mx-auto d-flex justify-content-center align-items-center h-100">
+            <div class="text-center">
+                <img src="../admin/svg/bill.svg" width="128" height="128" class="img-fluid mb-2">
+                <h4 class="mb-3">You haven't uploaded any school year yet.</h4>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#newSY-modal">
+                    <i class="far fa-plus-square"></i> Add School Year Now
+                </button>
+
+            </div>
+        </div>
+    </div>
+</main>

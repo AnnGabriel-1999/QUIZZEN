@@ -1,0 +1,79 @@
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="mb-3">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg">
+
+        <!-- Title Container -->
+        <div class="w-lg-90 mx-auto mb-0 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">Published Freeflow</h3>
+
+            <!-- Button -->
+            <div class="mr-3">
+                <!-- <button class="btn btn-primary btn-rounded fnt-btn fnt-primary">
+                    <i class="far fa-plus-square"></i> Unknown Button
+                </button> -->
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <div class="w-lg-90 mx-auto mb-1">
+            <!-- Breadcrumb -->
+            <nav>
+                <ol class="breadcrumb px-0 mx-3 mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="#">My Quizzen</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#">{{quizTitle}}</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Published Freeflow
+                    </li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="w-lg-90 mx-auto mb-3">
+
+            <!-- Published Freeflow Label -->
+            <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">{{part.Type}}</label>
+
+            <div ng-repeat="part in parts | filter: searchTxt" class="card mx-3">
+                <div class="card-body p-3" data-ng-init="view(part.PartID,part.TypeID)">
+                    <div class="text-primary mb-1">{{part.Type}}</div>
+                    <div ng-repeat="question in questions">
+                        <h5 class="m-0">Question: {{question.Question}}</h5>
+
+                        <!--MULTIPLE CHOICE-->
+                        <div ng-show="validate_1" class="mb-2">
+                            <p class="m-0"> A. {{question.a}} </p>
+                            <p class="m-0"> B. {{question.b}} </p>
+                            <p class="m-0"> C. {{question.c}} </p>
+                            <p class="m-0"> D. {{question.d}} </p>
+                        </div>
+
+                        <!--TRUE OR FALSE-->
+                        <div ng-show="validate_2" class="mb-2">
+                            <p class="m-0"> True </p>
+                            <p class="m-0"> False</p>
+                        </div>
+                        
+                        <!--ARRANGE THE SEQUENCE-->
+                                    <div ng-show="validate_3" class="mb-2">
+                                        <p class="m-0"> 1st: {{question.a}} </p>
+                                        <p class="m-0"> 2nd: {{question.b}} </p>
+                                        <p class="m-0"> 3rd: {{question.c}} </p>
+                                        <p class="m-0"> 4th: {{question.d}} </p>
+                                    </div>
+                                    
+                        <!--GUESS WORD -->
+                        <div ng-show="validate_4" class="mb-2">
+                            <p class="m-0"> S_MP__</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

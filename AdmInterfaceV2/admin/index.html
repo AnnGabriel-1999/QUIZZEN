@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="../src/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../src/fontawesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/sweetalert.min.css">
+
+    <title>Quizzen</title>
+</head>
+
+<body ng-app="theApp">
+    <div id="wrapper">
+
+        <!-- New Sidebar -->
+        <div ng-if="$root.fucker" id="hs-sidebar-wrapper" class="shadow d-flex flex-column">
+
+            <!-- Logo -->
+            <div class="text-center py-3">
+                <a href="#!/sectionslist">
+                    <img src="../admin/images/quizzen-logo-inverted.png" width="130" height="64" alt="Quizzen Logo">
+                </a>
+            </div>
+
+            <!-- Sidebar items -->
+            <ul class="hs-sidebar-nav flex-grow-1">
+                <li class="my-2">
+                    <div class="selected-container" id="quizzes">
+                        <a href="#!/myquizzen">
+                            <div class="sidebar-icon-container">
+                                <i class="fas fa-book fa-lg"></i>
+                            </div>
+                            <span class="d-inline-block">My Quizzen</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="my-2">
+                    <div class="selected-container" id="sections">
+                        <a href="#!/sectionslist">
+                            <div class="sidebar-icon-container">
+                                <i class="fas fa-users fa-lg"></i>
+                            </div>
+                            <span class="d-inline-block">Section List</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="my-2">
+                    <div class="selected-container" id="share">
+                        <a href="#!/sharedQuizzes">
+                            <div class="sidebar-icon-container">
+                                <i class="far fa-envelope fa-lg"></i>
+                            </div>
+                            <span class="d-inline-block">Shared Quizzes</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="my-2">
+                    <div class="selected-container" id="bin">
+                        <a href="#!/bin">
+                            <div class="sidebar-icon-container">
+                                <i class="far fa-trash-alt fa-lg"></i>
+                            </div>
+                            <span class="d-inline-block">Bin</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="my-2">
+                    <div class="selected-container" id="report">
+                        <a href="#!/accountSettings">
+                            <div class="sidebar-icon-container">
+                                 <i class="fas fa-user-cog fa-lg"></i>
+                            </div>
+                            <span class="d-inline-block">Settings</span>
+                        </a>
+                    </div>
+                </li>
+               <!--  <li class="my-2">
+                    <div class="selected-container" id="admin-settings">
+                        <a href="#!/">
+                            <div class="sidebar-icon-container">
+                                <i class="fas fa-user-cog fa-lg"></i>
+                            </div>
+                            <span class="d-inline-block">Account Settings</span>
+                        </a>
+                    </div>
+                </li> -->
+            </ul>
+
+            <!-- Logout Button -->
+            <div class="py-4 text-center">
+                <a ng-href="#!/logout" class="btn bg-white text-danger btn-rounded fnt-white px-5">
+                    <i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+        
+         <!-- Navbar -->
+        <nav ng-if="$root.fucker" class="col-md-12 navbar navbar-expand-lg navbar-light bg-white d-flex justify-content-end position-fixed border-bottom main-nav">
+            <div class="media float-left dropdown" style="height: 65px;">
+                <img class="align-self-center ml-3 mr-2 rounded-circle" src="images/profile.png" width="30" height="30" />
+
+                <div class="align-self-center media-body">
+                    <h6 class="m-0" id="nav-loggedUser" ng-repeat="x in user">
+                        Hello, {{x.user}}
+                    </h6>
+                </div>
+            </div>
+        </nav>
+        <!--END OF SIDE BAR AND NAV BAR-->
+        <!-- Old Sidebar -->
+        <!-- <div id="hs-sidebar-wrapper" class="border-right">
+            <ul class="hs-sidebar-nav">
+                <li>
+                    <a href="#!/myquizzen" id="quizzes"><i class="fas fa-book fa-lg"></i></a>
+                </li>
+                <li>
+                    <a href="#!/sectionslist" id="sections"><i class="fas fa-users fa-lg"></i></a>
+                </li>
+                <li>
+                    <a href="#" id="report"><i class="fas fa-file-invoice"></i></a>
+                </li>
+                <li>
+                    <a href="#!/sharedQuizzes" id="share"><i class="far fa-envelope fa-lg"></i></a>
+                </li>
+            </ul>
+        </div> -->
+
+        <!-- Navbar -->
+        <nav class="col-md-12 navbar navbar-expand-lg navbar-light bg-white d-flex justify-content-end position-fixed border-bottom main-nav"
+            ng-show="1>2">
+            <div class="media float-left dropdown" style="height: 65px;">
+                <img class="align-self-center ml-3 mr-2 rounded-circle" src="images/marianne.jpg" width="30" height="30" />
+
+                <div class="align-self-center media-body">
+                    <h6 class="m-0" id="nav-loggedUser">
+                        Hello, Vega
+                    </h6>
+                </div>
+            </div>
+        </nav>
+        <!--END OF SIDE BAR AND NAV BAR-->
+
+        <main class="h-100">
+            <div ng-view class="h-100"></div>
+        </main>
+    </div>
+</body>
+
+<script type="text/javascript" src="../src/js/jquery.min.js"></script>
+<script src="../src/js/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+<script type="text/javascript" src="../src/js/popper.min.js"></script>
+<script type="text/javascript" src="../src/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../src/js/script.js"></script>
+
+<script type="text/javascript" src="../src/js/angular.min.js"></script>
+
+<script type="text/javascript" src="../src/js/socket.io.js"></script>
+<script type="text/javascript" src="../src/js/angular-socket-io-master/socket.js"></script>
+
+<script type="text/javascript" src="../src/js/angular-route.min.js"></script>
+<script type="text/javascript" src="../src/js/angular_controllers.js"></script>
+<script type="text/javascript" src="../src/js/angular-my-services.js"></script>
+<script type="text/javascript" src="../src/js/ngStorage.js"></script>
+<script type="text/javascript" src="../src/js/ui-bootstrap-tpls-3.0.5.js"></script>
+<script type="text/javascript" src="../src/js/sweetalert.min.js"></script>
+<script type="text/javascript" src="../src/js/checklist-model.js"></script>
+
+<!-- JQuery Circle Progress -->
+<script src="../src/plugins/jquery-circle-progress-1.2.2/dist/circle-progress.js"></script>
+
+</html>

@@ -1,0 +1,111 @@
+<!-- Redesign -->
+<div class="d-flex align-items-center position-relative" style="min-height: 100vh;">
+    <header class="position-absolute w-100" style="top: 0; right: 0; left: 0; z-index: 2;">
+
+        <!-- Navbar -->
+        <nav class="d-flex justify-content-between align-items-center">
+            <!-- Logo -->
+            <div class="col-lg-4 col-xl-4 px-0 text-left text-lg-center">
+                <a href="landing.html" class="d-inline-block p-4 p-sm-4 p-md-4">
+                    <img src="../admin/images/quizzen-logo-inverted.png" height="64" alt="Logo" class="d-none d-lg-inline-block">
+                    <img src="../admin/images/quizzen-logo.png" height="64" alt="Logo" class="d-inline-block d-lg-none">
+                </a>
+            </div>
+
+            <!-- Button -->
+            <div class="p-4 p-sm-4 p-md-4">
+                <!-- <a href="#!/empCheck" class="btn btn-primary">Register</a> -->
+            </div>
+        </nav>
+
+    </header>
+
+    <div class="col-lg-4 col-xl-4 d-none d-lg-flex align-items-center align-self-stretch px-0 bg-primary position-relative h-100 position-fixed">
+        <div id="particles-js2" style="position: absolute; width: 100%; height: 98%;"></div>
+
+        <div class="container">
+            <div class="col-lg-11 text-center mx-auto">
+                <h3 class="text-white">Quizzen</h3>
+                <h4 class="text-white">A mobile and Web Quiz Builder</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-5 offset-xl-5 pt-7">
+
+                <!-- Form -->
+                <form name="myForm" class="mt-5 offset-md-2 offset-lg-2 offset-xl-2">
+                    <!-- Title -->
+                    <div class="mb-5">
+                        <h2 class="h3 text-primary mb-0">Instructor <span class="font-weight-bold">Request</span></h2>
+                        <p class="text-secondary">Request to be a part of instructors.</p>
+                    </div>
+
+                    <!-- Error -->
+                    <p class="text-qzndanger mb-3">{{error}}</p>
+                    <p ng-show="myForm.message.$error.maxlength" class="text-qzndanger mb-3">Message exceed to the maximum length of 100</p>
+                     <p ng-show="myForm.empID.$error.maxlength" class="text-qzndanger mb-3">Employee ID has a length of 10 only</p>
+                    <!-- Inputs -->
+                    <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Employee
+                            ID</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" autocomplete="off" name="empID" numbers-only="numbers-only" ng-maxlength="10" class="form-control" ng-model="empID"
+                                tabindex="1" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">First
+                            Name</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" ng-model="fname"
+                                tabindex="2" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Middle
+                            Name</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" ng-model="mname"
+                                tabindex="3" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Last
+                            Name</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" ng-model="lname"
+                                tabindex="4" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Message</label>
+                        <textarea rows="4" class="form-control" ng-maxlength="100" name="message" tabindex="5" ng-model="message"></textarea>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="row align-items-center mb-5">
+                        <div class="col-7">
+                            <span class="small text-secondary">Don't have an account?</span>
+                            <a href="#!/empCheck" class="small">Register here</a>
+                        </div>
+                        <div class="col-5 text-right">
+                            <button class="btn btn-primary btn-lg" ng-disabled="myForm.$invalid" ng-click="openRequest()" tabindex="6">Request</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Particles -->
+<script type="text/javascript" src="../src/plugins/particles/particles2.js"></script>
+<script type="text/javascript" src="../src/plugins/particles/app2.js"></script>

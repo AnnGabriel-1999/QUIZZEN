@@ -1,0 +1,145 @@
+<!-- Unassign modal -->
+<div class="modal fade" id="unassignProf-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="h6 mb-0">Unassign Professor</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Content -->
+            <div class="modal-body p-4">
+                <p>Unassign Professor</p>
+
+                <div class="form-group text-right">
+                    <button class="btn btn-danger" type="button" ng-click="unAssign()">
+                        Unassign
+                    </button>
+                 
+                </div>
+            </div>
+            <!-- End Contents -->
+            
+        </div>
+    </div>
+</div>
+
+ 
+
+
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="mb-7">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-0 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">{{section}} Assigned Professors</h3>
+
+            <!-- Button -->
+            <div>
+                <!-- <button ng-click="getQuizID(quizInfo[0].MaxID)" class="btn btn-primary" data-toggle="modal" data-target="#newQuiz-modal">
+                    <i class="far fa-plus-square"></i> Add New Quiz
+                </button> -->
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <!-- Breadcrumb -->
+        <div class="w-lg-95 mx-auto mb-0">
+            <nav>
+                <ol class="breadcrumb px-0 mx-3 mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="#!/viewCourses">Course List</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#!/viewSections/{{courseID}}/{{prefix}}">Sections</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Assigned Professors
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End Breadcrumb -->
+
+        <div class="w-lg-95 mx-auto">
+            <div class="bg-white p-4">
+
+                <!-- Activity Menu -->
+                <div class="row justify-content-between align-items-sm-center">
+                    <div class="col-md-5 mb-sm-2"></div>
+
+                    <div class="col-md-6">
+                        <div class="d-flex">
+
+                            <!-- Display * of entries -->
+                            <div class="mr-2">
+                                <select class="custom-select" style="width: auto !important;">
+                                    <option value="6">6 entries</option>
+                                    <option value="12" selected>12 entries</option>
+                                    <option value="18">18 entries</option>
+                                    <option value="24">24 entries</option>
+                                </select>
+                            </div>
+
+                            <!-- Search -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                                        <span class="fas fa-search"></span>
+                                    </span>
+                                </div>
+
+                                <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;" placeholder="Search" ng-model="assProf">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Activity Menu -->
+
+                <hr class="my-4">
+
+                <!-- Assigned Activity Table -->
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-4">
+                        <thead>
+                            <tr class="text-uppercase font-size-14" role="row">
+                                <th style="width: 324px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Employee Name
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="prof in profs |filter:assProf">
+                                <td class="align-middle text-secondary">{{prof.name}}</td>
+                                <td class="align-midddle text-secondary">
+                                    <button class="btn btn-danger btn-rounded fnt-btn fnt-danger" ng-click="setID(prof.handling_id)"
+                                    data-toggle="modal" data-target="#unassignProf-modal">
+                                    <i class="far fa-edit"></i> Unassign
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr ng-show="!profs.length">
+                                    <td colspan="5">
+                                        No Assigned Professor(s).
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Assigned Activity Table -->
+
+            </div>
+        </div>
+
+    </div>
+</main>

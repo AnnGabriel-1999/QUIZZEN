@@ -1,0 +1,82 @@
+<main class="h-100">
+    <div class="container-fluid px-0 h-100">
+
+        <div class="d-flex flex-column h-100">
+
+            <!-- Header -->
+            <div class="w-100 bg-white shadow-sm position-fixed" style="height: 67px; z-index: 99;">
+                <div class="container-fluid h-100">
+                    <div class="row px-5" style="height: 67px;">
+                        <!-- Host Name -->
+                        <!-- <div class="col-sm-3 col-md-3 d-flex justify-content-start align-items-center h-100">
+                            <div class="d-flex align-items-center">
+                                Quiz Title here
+                            </div>
+                        </div> -->
+
+                        <!-- Timer -->
+                        <!-- <div class="col-sm-6 d-flex col-md-6 bg-white justify-content-center align-items-center position-relative h-100">
+                            <h4 class="mb-0">Question 1 of 28</h4>
+                        </div> -->
+
+                        <!-- Quiz Title -->
+                        <!-- <div class="col-sm-3 col-md-3 d-flex justify-content-end align-items-center h-100">
+                            <div class="d-flex align-items-center">
+
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="row px-5" style="height: 27px;">
+                                    <div class="col-12">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: 25%"></div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                </div>
+            </div>
+            <!-- <div class="w-100 bg-white position-fixed">
+                <div class="p-4">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%"></div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Contents -->
+            <div style="height: 100vh;">
+                <!-- Question -->
+                <div class="container" style="height: 86vh; margin: 0 auto; margin-top: 14vh;">
+                    <div class="row no-gutters" style="height: 86vh; min-height: 60vh;">
+                        <div class="col-12 mt-2">
+                            <h1 class="text-center">{{answer}}</h1>
+                            <div ng-show="oonga">
+                                <h4 class="text-center">1. {{choices.choice1}}</h4>
+                                <h4 class="text-center">2. {{choices.choice2}}</h4>
+                                <h4 class="text-center">3. {{choices.choice3}}</h4>
+                                <h4 class="text-center">4. {{choices.choice4}}</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mx-auto d-flex justify-content-center align-items-center">
+                            <div class="text-center w-50 mr-1">
+                                <h1 class="text-success">{{correctStudents}}</h1>
+                                <h4>Correct Users</h4>
+                            </div>
+
+                            <div style="height: 74%; width: 2px; background-color: #ddd;"></div>
+
+                            <div class="text-center w-50 ml-1">
+                                <h1 class="text-danger">{{wrongStudents}}</h1>
+                                <h4>Wrong Users</h4>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</main>

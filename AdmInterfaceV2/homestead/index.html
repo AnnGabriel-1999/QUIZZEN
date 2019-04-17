@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../src/css/main.css" type="text/css">
+    <link rel="stylesheet" href="../src/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../src/css/sweetalert.min.css" type="text/css">
+
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.0.3.js"></script>
+    <title>Dean</title>
+</head>
+
+<body ng-app="homestead">
+    <!-- Navigation -->
+    <!-- Incomplete -->
+     <!-- Navbar -->
+        <nav ng-if="$root.fucker" class="col-md-12 navbar navbar-expand-lg navbar-light bg-white d-flex justify-content-end position-fixed border-bottom main-nav">
+            <div class="media float-left dropdown" style="height: 65px;">
+                <img class="align-self-center ml-3 mr-2 rounded-circle" src="backup/profile.png" width="30" height="30" />
+
+                <div class="align-self-center media-body">
+                    <h6 class="m-0" id="nav-loggedUser" ng-repeat="x in user">
+                        Hello, {{x.user}}
+                    </h6>
+                </div>
+            </div>
+        </nav>
+
+    <div id="hs-sidebar-wrapper" class="shadow d-flex flex-column" ng-if="$root.fucker">
+
+        <!-- Logo -->
+        <div class="text-center py-3">
+            <a href="#!/">
+                <img src="../admin/images/quizzen-logo-inverted.png" width="130" height="64" alt="Quizzen Logo">
+            </a>
+        </div>
+
+        <!-- Sidebar items -->
+        <ul class="hs-sidebar-nav flex-grow-1">
+            <li class="my-2">
+                <div class="selected-container" id="requests">
+                    <a href="#!/home">
+                        <div class="sidebar-icon-container">
+                            <i class="far fa-envelope fa-lg"></i>
+                        </div>
+                        <span class="d-inline-block">Request</span>
+                    </a>
+                </div>
+            </li>
+            <li class="my-2">
+                <div class="selected-container" id="COURSES">
+                    <a href="#!/viewCourses">
+                        <div class="sidebar-icon-container">
+                            <i class="fas fa-university fa-lg"></i>
+                        </div>
+                        <span class="d-inline-block">View Courses</span>
+                    </a>
+                </div>
+            </li>
+            <li class="my-2">
+                <div class="selected-container" id="admins">
+                    <a href="#!/viewAdmins">
+                        <div class="sidebar-icon-container">
+                            <i class="far fa-user-circle fa-lg"></i>
+                        </div>
+                        <span class="d-inline-block">View Instructors</span>
+                    </a>
+                </div>
+            </li>
+            <li class="my-2">
+                <div class="selected-container" id="calendar">
+                    <a href="#!/viewSY">
+                        <div class="sidebar-icon-container">
+                            <i class="far fa-calendar-alt fa-lg"></i>
+                        </div>
+                        <span class="d-inline-block">School Year</span>
+                    </a>
+                </div>
+            </li>
+            <li class="my-2">
+                <div class="selected-container" id="downloadables">
+                    <a href="#!/downloadables">
+                        <div class="sidebar-icon-container">
+                            <i class="fas fa-arrow-circle-down fa-lg"></i>
+                        </div>
+                        <span class="d-inline-block">Downloadables</span>
+                    </a>
+                </div>
+            </li>
+            <li class="my-2">
+                    <div class="selected-container" id="cog">
+                        <a href="#!/changePW">
+                            <div class="sidebar-icon-container">
+                                <i class="fas fa-cog fa-lg"></i>
+                            </div>
+                            <span class="d-inline-block">Account Settings</span>
+                        </a>
+                    </div>
+                </li>
+        </ul>
+
+        <!-- Logout Button -->
+        <div class="py-4 text-center">
+            <a ng-href="#!/logout" class="btn bg-white text-danger btn-rounded fnt-white px-5">
+                <i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <div id="wrapper" class="h-100">
+        <div ng-view class="h-100">
+        </div>
+    </div>
+</body>
+<script src="../src/js/angular.min.js"></script>
+<script type="text/javascript" src="../src/js/angular-route.min.js"></script>
+<script src="../src/js/angular_homestead.js"></script>
+<!-- <script type="text/javascript" src="../src/js/angular-my-services.js"></script> -->
+<script type="text/javascript" src="../src/js/ngStorage.js"></script>
+<script src="../src/js/jquery.min.js"></script>
+<script src="../src/js/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+<script src="../src/js/popper.min.js"></script>
+<script src="../src/js/bootstrap.min.js"></script>
+<script src="../src/js/script.js"></script>
+<script src="../src/js/checklist-model.js"></script>
+<script src="../src/js/angular_factory.js"></script>
+<script type="text/javascript" src="../src/js/ui-bootstrap-tpls-3.0.5.js"></script>
+<script src="../src/js/sweetalert.min.js"></script>
+
+</html>

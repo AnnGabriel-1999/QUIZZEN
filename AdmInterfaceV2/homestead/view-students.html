@@ -1,0 +1,319 @@
+<!-- New student modal -->
+<div class="modal fade" id="newStudent-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="modal-title h6 mb-0">New Student</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Contents -->
+            <div class="modal-body">
+                <form name="myForm">
+                    
+                    <!-- Alert -->
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="error">
+                        {{error.error}}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <p ng-show="myForm.studID.$error.maxlength" class="alert alert-danger alert-dismissible fade show">
+                            Student ID has a maximum length of 10 only
+                        </p>
+                        <p ng-show="myForm.fname.$error.pattern" class="alert alert-danger alert-dismissible fade show">
+                                First Name has a special character
+                        </p>
+                        <p ng-show="myForm.mname.$error.pattern" class="alert alert-danger alert-dismissible fade show">
+                                Middle Name has a special character
+                        </p>
+                        <p ng-show="myForm.lname.$error.pattern" class="alert alert-danger alert-dismissible fade show">
+                                Last Name has a special character
+                        </p>
+                    <!-- End Alert -->
+
+                    <div class="form-group">
+                        <input type="text" ng-minlength="10" ng-maxlength="10" name="studID" numbers-only="numbers-only"class="form-control" ng-model="studID" placeholder="Student ID" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="fname" ng-pattern="/^[a-zA-Z ]*$/" class="form-control" ng-model="fname" placeholder="First Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="mname" ng-pattern="/^[a-zA-Z ]*$/" class="form-control" ng-model="mname" placeholder="Middle Name">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="lname" ng-pattern="/^[a-zA-Z ]*$/" class="form-control" ng-model="lname" placeholder="Last Name" required>
+                    </div>
+                    <hr>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="addStudent()">Add Student</button>
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import from CSV modal -->
+<div class="modal fade" id="importCSV-modal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h4 class="modal-title text-qznprimary">Import from Excel</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span ng-click="clearResponse()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <div ng-show="trouble" style="color: red;">
+                        <div ng-show="trouble.duplicate.length != 0">
+                        Theres a duplication of data on line(s):
+                        <b ng-repeat="x in trouble.duplicate">{{x}} </b>
+    
+                        </div>
+    
+                        <div ng-show="trouble.wrongInput.length != 0">
+                            Please Provide all data needed on lines(s):
+                            <b ng-repeat="x in trouble.wrongInput">{{x}} </b>
+                            
+                        </div>
+    
+                        <div ng-show="trouble.missingData.length != 0">
+                            Invalid Employee ID on line(s):
+                            <b ng-repeat="x in trouble.missingData">{{x}} </b>
+                            
+                        </div>
+                    </div>
+                    <b style="color: green;">{{success}}</b>
+                    <b style="color: red;">{{error}}</b>
+                    <p style="cursor: pointer;"><a href="../src/assets/csvformats/QuizzenUploadStudentFormat.csv" download>Download our Format</a></p>
+                    <p>or</p>
+                    <p class="m-0">                    
+                        <input type="file" id="file" class="hiddenFile" file-input="files">
+                        <label for="file" id="filezzz" class="btn btn-primary btn-rounded fnt-btn fnt-primary" style="cursor: pointer;" ng-click="clearResponse()">Choose a file</label>
+                    </p>                 
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-click="uploadCSV()">Upload</button>
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Update student modal -->
+<div class="modal fade" id="updateStudent-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="modal-title h6 mb-0">Update Student Data</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <div class="modal-body">
+                <form name="Form">
+
+                    <!-- Alert -->
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="error">
+                        {{error.error}}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <p ng-show='myForm.studID.$error.maxlength' class="alert alert-danger alert-dismissible fade show">Student ID has a maximum length of 10 only</p>
+                    <!-- End Alert -->
+
+                    <div class="form-group">
+                        <input type="text" name="studID" numbers-only="numbers-only" ng-maxlength="10" class="form-control" ng-model="studID" placeholder="Student ID" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="fname" placeholder="First Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="mname" placeholder="Middle Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="lname" placeholder="Last Name" required>
+                    </div>
+
+                    <select class="custom-select mb-3" ng-model="courseID" ng-options="c.course_id as c.course for c in courses"
+                        ng-change="refreshSec(courseID)">
+                        <option disabled hidden value="">Courses Available</option>
+                    </select>
+
+                    <select class="custom-select" ng-model="sectionID" ng-options="s.section_id as s.section for s in Sections">
+                        <option disabled hidden value="">Sections Available</option>
+                    </select>
+       
+            </div>
+
+            <div class="modal-footer">
+                <p class="text-right">
+                    <a href="#" class="btn btn-light" data-dismiss="modal">Close</a>
+                    <button  class="btn btn-primary" ng-disabled="Form.$invalid" ng-click="updateStudent()">Save Changes</button>
+                </p>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-0 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">{{prefix}} {{section}}'s Students</h3>
+
+            <!-- Button -->
+           
+            <div>
+                <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" data-toggle="modal" data-target="#importCSV-modal">
+                        <i class="far fa-plus-square"></i> Use Excel
+                </button>
+                <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" data-toggle="modal" data-target="#newStudent-modal">
+                    <i class="far fa-plus-square"></i> Add New Student
+                </button>
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <!-- Breadcrumb -->
+        <div class="w-lg-95 mx-auto mb-0">
+            <nav>
+                <ol class="breadcrumb px-0 mb-0 mx-3">
+                    <li class="breadcrumb-item">
+                        <a href="#">Course List</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#">Sections</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        {{prefix}} {{section}}'s Students
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End Breadcrumb -->
+
+        <div class="w-lg-95 mx-auto mt-0">
+            <div class="bg-white p-4">
+
+                <!-- Activity Menu -->
+                <div class="row justify-content-between align-items-sm-center">
+                    <div class="col-md-5 mb-sm-2"></div>
+
+                    <div class="col-md-6">
+                        <div class="d-flex">
+
+                            <!-- Display * of entries -->
+                            <div class="mr-2">
+                                <select class="custom-select" style="width: auto !important;">
+                                    <option value="6">6 entries</option>
+                                    <option value="12" selected>12 entries</option>
+                                    <option value="18">18 entries</option>
+                                    <option value="24">24 entries</option>
+                                </select>
+                            </div>
+
+                            <!-- Search -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                                        <span class="fas fa-search"></span>
+                                    </span>
+                                </div>
+
+                                <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;" ng-model="searchStud" placeholder="Search student...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Activity Menu -->
+
+                <hr class="my-4">
+
+                <!-- Students Activity Table -->
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-4">
+                        <thead>
+                            <tr class="text-uppercase font-size-14" role="row">
+                                <th style="width: 200px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Student ID
+                                    </div>
+                                </th>
+                                <th style="width: 350px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Name
+                                    </div>
+                                </th>
+                                <th style="width: 190px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Status
+                                    </div>
+                                </th>
+                                <th style="width: 280px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Action
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="stud in filterStuds = (studs | filter :  searchStud ) | limitTo:4:4*(page-1)" ng-show="studs">
+                                <td class="align-middle text-primary">{{stud.student_id}}</td>
+                                <td class="align-middle text-secondary">{{stud.fname}} {{stud.mname}} {{stud.lname}}</td>
+                                <td class="align-middle text-danger">{{stud.status}}</td>
+                                <td class="align-middle text-warning">
+                                    <button class="btn btn-warning w-auto btn-rounded fnt-btn fnt-warning" data-toggle="modal" ng-click="getStudentData(stud.student_id)" data-target="#updateStudent-modal">
+                                        <i class="far fa-edit"></i> Edit
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr ng-show="!filterStuds.length">
+                                    <td colspan="5">
+                                        No results found.
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Students Activity Table -->
+
+            </div>
+        </div>
+
+        
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterStuds.length" ng-model="page" items-per-page="4" max-size="5"
+        class="pagination-md justify-content-center" boundary-links="true"
+        force-ellipses="true" ng-show="filterStuds.length > 0"  ng-change="pageChanged()"></ul>
+
+    </div>
+</main>

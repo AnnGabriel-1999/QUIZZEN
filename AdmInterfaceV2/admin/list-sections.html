@@ -1,0 +1,76 @@
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-3 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">Handled Courses</h3>
+
+            <div class="mr-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;" placeholder="Search course..." ng-model="admSearch">
+                </div>
+            </div>
+
+            <!-- Button -->
+            <!-- <div>
+                <button ng-click="getQuizID(quizInfo[0].MaxID)" class="btn btn-primary" data-toggle="modal" data-target="#newQuiz-modal">
+                    <i class="far fa-plus-square"></i> Add Handled Course
+                </button>
+            </div> -->
+        </div>
+        <!-- End Title Container -->
+
+        <!-- Courses -->
+        <div class="w-lg-95 mx-auto mt-4" ng-show="!error">
+
+            <!-- Course Label -->
+            <label class="h6 mx-3 text-secondary d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Courses</label>
+
+            <!-- Courses -->
+
+            <div class="card p-3 mx-3 mb-2" ng-repeat="x in filterCourse = (handledCourses | filter: admSearch) | limitTo:4:4*(page-1)">
+                <div class="row">
+                    <div class="col-12 d-block d-md-flex justify-content-between align-items-center">
+                        <div class="flex-grow-1">
+                            <h2 class="h5">{{x.course}}</h2>
+                            <p>{{x.schoolyear}}</p>
+                        </div>
+
+                        <div>
+                            <a ng-href="#!/viewsections2/{{x.course_id}}/{{userID}}/{{x.course}}/{{x.prefix}}" class="btn btn-success btn-rounded fnt-btn fnt-success">
+                                <i class="far fa-eye"></i> View Sections
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- End Courses -->
+
+        <div class="container h-100" ng-show="error">
+            <!-- Empty List -->
+            <div class="w-lg-95 mx-auto d-flex justify-content-center align-items-center h-100">
+                <div class="text-center">
+                    <img src="../admin/svg/bill.svg" width="128" height="128" class="img-fluid mb-2">
+                    <h4 class="mb-3">You're not assigned to any course yet.</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterCourse.length" ng-model="page" items-per-page="4" max-size="5" class="pagination-md justify-content-center"
+            boundary-links="true" force-ellipses="true" ng-show="filterCourse.length > 0" ng-change="pageChanged()"></ul>
+        <!-- End Pagination -->
+
+    </div>
+</main>

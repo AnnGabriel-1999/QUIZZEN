@@ -1,0 +1,86 @@
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+	<div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+
+		<div class="w-lg-95 mx-auto mb-2 d-flex justify-content-between align-items-center">
+			<h3 class="font-weight-bold mb-0 ml-3">Quiz Summary</h3>
+
+			<div ng-show="!error" class="d-flex mr-3">
+				<button class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-click="printQuizSummary()">Print this report</button>
+			</div>
+		</div>
+
+		<div class="w-lg-95 mx-auto mt-4">
+			<div class="mx-3">
+				<p class="mb-0">Quiz Title: &nbsp;<span class="text-secondary">{{header.quiz_title}}</span></p>
+				<p class="mb-0">Part Type: &nbsp;<span class="text-secondary">{{header.part_type}}</span></p>
+				<p class="mb-0">Facilitated By: &nbsp;<span class="text-secondary">{{header.fname +" "+header.mname+ " "
+						+header.lname}}</span></p>
+				<p class="mb-0">Deployment Time: &nbsp;<span class="text-secondary">{{header.time_started}}</span></p>
+				<p class="mb-0">Course: &nbsp;<span class="text-secondary">{{header.course}}</span></p>
+				<p class="mb-0">Section: &nbsp;<span class="text-secondary">{{header.section}}</span></p>
+			</div>
+		</div>
+
+		<div class="w-lg-95 mx-auto mb-2 mt-3 d-flex justify-content-between align-items-center">
+			<label class="h6 mx-3 d-block text-uppercase small text-secondary font-weight-bold" ng-show="!error" style="letter-spacing: 0.1em;">Quiz
+				Summary</label>
+		</div>
+
+		<div class="w-lg-95 mx-auto mt-1">
+			<table class="table mx-3">
+				<thead>
+					<tr>
+						<th scope="col">Student Id</th>
+						<th scope="col">Name</th>
+						<th scope="col">Overall</th>
+						<th scope="col">Score</th>
+						<th scope="col">Equivalent</th>
+						<th scope="col">Remarks</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="y in studentTakers">
+						<th scope="row">{{y.student_id}}</th>
+						<td>{{y.fname}}{{y.mname}}{{y.lname}}</td>
+						<td>{{y.overall}}</td>
+						<td>{{y.score}}</td>
+						<td>{{y.equivalent}}</td>
+						<td>{{y.remarks}}</td>
+						<td>
+							<button ng-click="getAnswers(y.user_id)" class="btn btn-primary btn-rounded fnt-btn fnt-primary w-auto">VIEW
+								ANSWERS</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="w-lg-95 mx-auto mb-2 mt-3 d-flex justify-content-between align-items-center">
+			<label class="h6 mx-3 d-block text-uppercase small text-secondary font-weight-bold" ng-show="!error" style="letter-spacing: 0.1em;">Results
+				per question</label>
+		</div>
+
+		<div class="w-lg-95 mx-auto mt-3">
+			<table class="table mx-3">
+				<thead>
+					<tr>
+						<th scope="col">Question</th>
+						<th scope="col">Correct</th>
+						<th scope="col">Wrong</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="y in questionResults">
+						<th scope="row">{{y.question}}</th>
+						<td class="text-success">{{y.nakatama}}</td>
+						<td class="text-danger">{{y.nakamali}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+</main>

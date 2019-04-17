@@ -1,0 +1,9 @@
+SELECT q.quiz_id, qtc.tag_id, tag.tag_name, q.quiz_title, q.description, q.filepath FROM quizzes q  
+INNER JOIN quiz_tag_colllections qtc ON q.quiz_id = qtc.quiz_id
+INNER JOIN quiz_tags tag ON qtc.tag_id = tag.tag_id WHERE q.admin_id = 48 AND tag.tag_id = 14
+
+
+get ALL QUIZ NA WALANG quiz_tags
+SELECT q.quiz_id, qtc.tag_id, tag.tag_name, q.quiz_title, q.description, q.filepath FROM quizzes q  
+INNER JOIN quiz_tag_colllections qtc ON q.quiz_id = qtc.quiz_id
+INNER JOIN quiz_tags tag ON qtc.tag_id = tag.tag_id WHERE q.admin_id = 71 and tag_name = ""

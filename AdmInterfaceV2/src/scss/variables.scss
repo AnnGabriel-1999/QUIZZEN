@@ -1,0 +1,48 @@
+@font-face {
+    font-family: Roboto-Regular;
+    src: url("../assets/fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: ProductSans-Regular;
+    src: url("../assets/fonts/Product\ Sans\ Regular.ttf");
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url("../assets/fonts/Poppins-Regular.ttf");
+}
+
+@font-face {
+    font-family: Poppins-Bold;
+    src: url("../assets/fonts/Poppins-Bold.ttf");
+}
+
+// Dropdown caret
+$enable-caret: false !default;
+
+// Breadcrumb
+$breadcrumb-divider: quote(">");
+
+// Colors
+$qznprimary: #1e96ff;
+$qznsuccess: #32b964;
+$qznwarning: #ffd011;
+$qzndanger: #ef596e;
+
+// H*, Title color
+$titleColor: #424242;
+
+// Border Radius
+// $border-radius: 10rem;
+
+
+// Add theme colors
+$theme-colors: (
+  "qznsuccess": $qznsuccess,
+  "qznprimary": $qznprimary,
+  "qzndanger": $qzndanger,
+  "qznwarning": $qznwarning
+);
+
+$grid-columns: 12 !default;

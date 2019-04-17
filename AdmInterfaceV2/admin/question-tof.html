@@ -1,0 +1,65 @@
+<main class="h-100">
+    <div class="container-fluid px-0 h-100">
+
+        <div class="d-flex flex-column h-100">
+
+            <!-- Header -->
+            <div class="w-100 bg-white shadow-sm position-fixed" style="height: 67px; z-index: 99;">
+                <div class="container-fluid h-100">
+                    <div class="row px-5" style="height: 67px;">
+                        <!-- Quiz Name -->
+                        <div class="col-sm-3 col-md-3 d-flex justify-content-start align-items-center h-100">
+                            <div class="d-flex align-items-center">
+                                {{quizAssets.quiz_title}}
+                            </div>
+                        </div>
+
+                        <!-- Timer -->
+                        <div class="col-sm-6 d-flex col-md-6 bg-white justify-content-center align-items-center position-relative h-100">
+                            <h4 class="mb-0 text-success">{{countScope}}s</h4>
+                        </div>
+
+                        <!-- Student Answers -->
+                        <div class="col-sm-3 col-md-3 d-flex justify-content-end align-items-center h-100">
+                            <div class="d-flex align-items-center">
+                                {{doneStudentslen}} answers
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Contents -->
+            <div style="height: 100vh;">
+                <!-- Question -->
+                <div class="container" style="height: 72vh; margin: 14vh auto;">
+                    <div class="row" style="height: 72vh; min-height: 60vh;">
+
+                        <!-- Question -->
+                        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                            <div class="text-center">
+                                <img src="{{imahe}}" alt="Claude" class="img-fluid rounded w-50 h-50 mb-3">
+                                <h4>{{localQuestion}}</h4>
+                                
+                            </div>
+                        </div>
+
+                        <!-- Choices -->
+                        <div class="col-md-6 d-flex justify-content-around align-items-center">
+                            <div class="h-25">
+                                <button class="btn btn-success p-5"><i class="fas fa-check"></i></button>
+                            </div>
+                            <div class="h-25">
+                                <button class="btn btn-danger p-5"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</main>

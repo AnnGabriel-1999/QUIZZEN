@@ -1,0 +1,287 @@
+<!-- Assign Modal -->
+<div class="modal fade" id="assignProf-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="modal-title h6 mb-0">Assign</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Contents -->
+            <div class="modal-body p-4">
+                <form name="myForm">
+
+                    <!-- Alert -->
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="assignError">
+                        {{assignError}}
+                    </div>
+                    <!-- End Alert -->
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search a professor..." ng-model="searchProf">
+                    </div>
+
+                    <div id="prof-chk__container">
+                        <div class="custom-control custom-checkbox" ng-repeat="prof in profs | filter: searchProf"
+                            ng-show="profs">
+                            <!-- Yung id ng prof palagay sa id attribute saka sa for ng label -->
+                            <input type="checkbox" class="custom-control-input" id="{{prof.admin_id}}" checklist-change="imChanged(adminIDS[$index])"
+                                checklist-model="selected.key" checklist-value="adminIDS[$index]" required>
+                            <label for="{{prof.admin_id}}" class="custom-control-label">{{prof.name}}</label>
+                        </div>
+                    </div>
+
+                    <div class="text-right">
+                        <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-click="assignProf()">Assign</button>
+                        <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- End Contents -->
+        </div>
+    </div>
+</div>
+
+<!-- New Section Modal -->
+<div class="modal fade" id="newSection-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header align-items-center py-3 px-4" style="background-color: #f8fafd;">
+                <h4 id="modalTitle" class="modal-title h6 mb-0">New Section</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <!-- End Header -->
+
+            <!-- Contents -->
+            <div class="modal-body p-4">
+                <form name="myForm" class="needs-validation mt-1">
+
+                    <!-- Alert -->
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="secError">
+                        {{secError}}
+                    </div>
+                    <!-- End Alert -->
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Enter section name" ng-model="sectionName"
+                            >
+                    </div>
+
+                    <select class="custom-select mb-3 w-100" required ng-model="filter">
+                        <option disabled hidden value="">Year Level</option>
+                        <option value="1">First Year</option>
+                        <option value="2">Second Year</option>
+                        <option value="3">Third Year</option>
+                        <option value="4">Fourth Year</option>
+                    </select>
+
+                    <div class="text-right">
+                        <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-disabled="myForm.$empty"  ng-click="addSection()">Add</button>
+                        <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- End Contents -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editWhat-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h4 class="modal-title text-qznprimary">Edit Section</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form name="myForm">
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="error">
+                        {{error}}
+                        <button type="button" class="close" data-dismiss="alert" ng-click="error = null">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Section Name" ng-model="sectionName"
+                            required>
+                    </div>
+
+                    <select class="custom-select mb-3 w-100" required ng-model="year_level">
+                        <option value="1">First Year</option>
+                        <option value="2">Second Year</option>
+                        <option value="3">Third Year</option>
+                        <option value="4">Fourth Year</option>
+                    </select>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button type="submit" class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-click="updateSection(id)">Save</button>
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Redesign -->
+<main class="h-100" style="margin-left: 270px;">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-3 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">{{course}}</h3>
+
+            <!-- Button -->
+            <div>
+                <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" data-toggle="modal" data-target="#newSection-modal" ng-show="!error1">
+                    <i class="far fa-plus-square"></i> Add Section
+                </button>
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <div class="w-lg-95 mx-auto mb-3" ng-show="secFilter">
+            <div class="bg-white p-4">
+
+                <!-- Activity Menu -->
+                <div class="row justify-content-between align-items-sm-center">
+                    <div class="col-md-5 mb-sm-2">
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="d-flex">
+
+                            <!-- Display * of entries -->
+                            <div class="mr-2">
+                                <select class="custom-select" style="width: auto;" ng-model="filter" ng-change="filterSectionView(filter)">
+                                    <option value="">Sort by year level</option>
+                                    <option value="1">First Year</option>
+                                    <option value="2">Second Year</option>
+                                    <option value="3">Third Year</option>
+                                    <option value="4">Fourth Year</option>
+                                </select>
+                            </div>
+
+                            <!-- Search -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                                        <span class="fas fa-search"></span>
+                                    </span>
+                                </div>
+
+                                <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;" ng-model="searchSection" placeholder="Search section...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Activity Menu -->
+
+                <hr class="my-4">
+
+                <!-- Request Activity Table -->
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-1">
+                        <thead ng-show="Sections">
+                            <tr class="text-uppercase font-size-14" role="row">
+                                <th style="width: 160px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Section
+                                    </div>
+                                </th>
+                                <th style="width: 134px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        No. of Students
+                                    </div>
+                                </th>
+                                <th style="width: 340px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Action
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="section in filterSection = (Sections | filter : {section: searchSection}) | limitTo:5:5*(page-1)"
+                                ng-show="Sections">
+
+                                <td class="align-middle text-secondary">{{prefix}} {{section.section}}</td>
+                                <td class="align-middle text-secondary">{{section.total}} student(s)</td>
+                                <td class="align-middle text-primary">
+                                    <div>
+                                        <button class="btn btn-primary w-auto btn-rounded fnt-btn fnt-primary" data-toggle="modal" data-target="#assignProf-modal"
+                                            ng-click="getVacant(section.section_id)">
+                                            <i class="far fa-plus-square"></i> Assign
+                                        </button>
+                                        <button class="btn btn-warning w-auto btn-rounded fnt-btn fnt-warning" ng-click="passSecData(section.section_id,courseID,section.section)"
+                                            data-toggle="modal" data-target="#editWhat-modal">
+                                            <i class="far fa-edit"></i> Edit
+                                        </button>
+                                        <a href="#!/viewAssigned/{{section.section_id}}/{{courseID}}/{{prefix}}" class="btn btn-success w-auto btn-rounded fnt-btn fnt-success">
+                                            <i class="far fa-eye"></i> View Assigned
+                                        </a>
+                                        <a ng-href="#!/viewStudents/{{section.section_id}}/{{courseID}}/{{prefix}}"
+                                            class="btn btn-success w-auto btn-rounded fnt-btn fnt-success">
+                                            <i class="far fa-user"></i> View students
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-show="!filterSection.length">
+                                <td colspan="3">
+                                    No results found.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Request Activity Table -->
+
+            </div>
+
+        </div>
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterSection.length" ng-model="page" items-per-page="5" max-size="5" class="pagination-md justify-content-center"
+            boundary-links="true" force-ellipses="true" ng-show="filterSection.length > 0" ng-change="pageChanged()"></ul>
+
+        <div class="container h-100" ng-show="error1">
+            <!-- Empty List -->
+            <div class="w-lg-95 mx-auto d-flex justify-content-center mt-7 h-100">
+                <div class="text-center">
+                    <img src="../admin/svg/bill.svg" width="128" height="128" class="img-fluid mb-2">
+                    <h4 class="mb-3">There are no sections under {{course}} yet.</h4>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#newSection-modal">
+                        <i class="far fa-plus-square"></i> Add Now!
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</main>

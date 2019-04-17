@@ -1,0 +1,80 @@
+<!-- Redesign -->
+<div class="d-flex align-items-center position-relative h-100">
+    <header class="position-absolute w-100" style="top: 0; right: 0; left: 0; z-index: 2;">
+
+        <!-- Navbar -->
+        <nav class="d-flex justify-content-between align-items-center">
+            <!-- Logo -->
+            <div class="col-lg-5 col-xl-4 px-0 text-left text-lg-center">
+                <a href="landing.html" class="d-inline-block p-4 p-sm-4 p-md-4">
+                    <img src="../admin/images/quizzen-logo-inverted.png" height="64" alt="Logo" class="d-none d-lg-inline-block">
+                    <img src="../admin/images/quizzen-logo.png" height="64" alt="Logo" class="d-inline-block d-lg-none">
+                </a>
+            </div>
+
+            <!-- Button -->
+            <div class="p-4 p-sm-4 p-md-4">
+                <!-- <a href="#!/adminRequest" class="btn btn-primary">Request</a> -->
+            </div>
+        </nav>
+
+    </header>
+
+    <div class="col-lg-5 col-xl-4 d-none d-lg-flex align-items-center h-100 px-0 position-relative bg-primary">
+        <div id="particles-js3" style="position: absolute; width: 100%; height: 98%;"></div>
+
+        <div class="container">
+            <div class="col-lg-11 text-center mx-auto">
+                <h3 class="text-white">Quizzen</h3>
+                <h4 class="text-white">A mobile and Web Quiz Builder</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 pt-7">
+
+                <!-- Form -->
+                <form name="myForm" class="needs-validation mt-5" novalidate>
+                    <!-- Title -->
+                    <div class="mb-5">
+                        <h2 class="h3 text-primary mb-0">Enter your <span class="font-weight-bold">Employee ID</span></h2>
+                        <p class="text-secondary">We will check if you're eligible to register.</p>
+                    </div>
+
+                    <!-- Error -->
+                    <p class="text-qzndanger mb-3">{{error}}</p>
+                    <p ng-show="myForm.empID.$error.maxlength" class="text-qzndanger mb-3">Employee ID has a length of 10 only</p>
+                    <!-- Inputs -->
+                    <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Employee ID</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" autocomplete="off" name="empID" numbers-only="numbers-only" ng-maxlength="10" class="form-control" ng-model="empID"
+                                tabindex="1" required>
+                        </div>
+                        <div class="invalid-feedback">
+                            Invalid Employee ID
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="row align-items-center mb-5">
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-6">
+                            <span class="small text-secondary">Not eligible?</span>
+                            <a href="#!/adminRequest" class="small">Request here</a>
+                        </div>
+                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-6 text-right">
+                            <button class="btn btn-primary btn-lg" ng-disabled="myForm.$invalid" ng-click="checkID()" tabindex="2">Check Employee ID</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Particles -->
+<script type="text/javascript" src="../src/plugins/particles/particles3.js"></script>
+<script type="text/javascript" src="../src/plugins/particles/app3.js"></script>

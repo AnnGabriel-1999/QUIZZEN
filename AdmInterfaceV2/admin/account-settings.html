@@ -1,0 +1,53 @@
+<main class="h-100" style="margin-left: 270px;">
+
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100">
+        <form name="myForm" class="mt-5">
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-3 d-flex justify-content-between align-items-center">
+            <h3 class="font-weight-bold mb-0 ml-3">Account Settings</h3>
+        </div>
+        <!-- End Title Container -->
+
+        <div class="w-lg-95 mx-auto mb-3">
+            <!-- Inputs -->
+            <div class="mb-3 mx-3 w-50 mx-3 w-50">
+                <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">First
+                    Name</label>
+                <div class="input-group input-group-lg">
+                    <input type="text"  class="form-control" placeholder="First Name"
+                        ng-model="fname" tabindex="1" required>
+                </div>
+            </div>
+
+            <div class="mb-3 mx-3 w-50">
+                <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Middle
+                    Name</label>
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" placeholder="Middle Name"
+                        ng-model="mname" tabindex="2" required>
+                </div>
+            </div>
+
+            <div class="mb-3 mx-3 w-50">
+                <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Last
+                    Name</label>
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" placeholder="Last Name"
+                        ng-model="lname" tabindex="3" required>
+                </div>
+            </div>
+
+            <div class="mx-3">
+                <a href="#!/updateCred" >Update username and password.</a>
+            </div>
+           <br>
+            <div class="mx-3">
+                <button class="btn btn-primary btn-rounded fnt-btn fnt-primary px-4" ng-disabled="myForm.$invalid" ng-click="saveHost()"
+                tabindex="6">Save</button>
+               
+            </div>
+        </div>
+        </form>
+    </div>
+
+</main>

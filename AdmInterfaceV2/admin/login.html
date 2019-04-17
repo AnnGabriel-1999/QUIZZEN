@@ -1,0 +1,159 @@
+<!-- Redesign -->
+<div class="d-flex align-items-center position-relative h-100">
+    <header class="position-absolute w-100" style="top: 0; right: 0; left: 0; z-index: 2;">
+
+        <!-- Navbar -->
+        <nav class="d-flex justify-content-between align-items-center">
+            <!-- Logo -->
+            <div class="col-lg-5 col-xl-4 px-0 text-left text-lg-center">
+                <a href="landing.html" class="d-inline-block p-4 p-sm-4 p-md-4">
+                    <img src="../admin/images/quizzen-logo-inverted.png" height="64" alt="Logo" class="d-none d-lg-inline-block">
+                    <img src="../admin/images/quizzen-logo.png" height="64" alt="Logo" class="d-inline-block d-lg-none">
+                </a>
+            </div>
+
+            <!-- Button -->
+            <div class="p-4 p-sm-4 p-md-4">
+                 <a ng-click="fuckzz()" class="btn btn-primary">Play</a> 
+            </div>
+        </nav>
+
+    </header>
+
+    <div class="col-lg-5 col-xl-4 d-none d-lg-flex align-items-center h-100 px-0 bg-primary position-relative">
+        <div id="particles-js" style="position: absolute; width: 100%; height: 98%;"></div>
+
+        <div class="container">
+            <div class="col-lg-11 text-center mx-auto">
+                <h3 class="text-white">Quizzen</h3>
+                <h4 class="text-white">A mobile and Web Quiz Builder</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 pt-7">
+
+                <!-- Form -->
+                <form name="myForm" class="needs-validation mt-5" novalidate>
+                    <!-- Title -->
+                    <div class="mb-5">
+                        <h2 class="h3 text-primary mb-0">Welcome</h2>
+                        <p class="text-secondary">Login to your Quizzen account.</p>
+                    </div>
+
+                    <!-- Error -->
+                    <p class="text-qzndanger mb-3">{{error.error}}</p>
+                    <p ng-show="myForm.name.$error.maxlength" class="text-qzndanger mb-3">accept one letter only</p>
+                    <p ng-show="myForm.name.$error.pattern" class="text-qzndanger mb-3">ABCD only the valid characters</p>
+                    <!-- Inputs -->
+                 <div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Username</label>
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" ng-model="angUsername" tabindex="1" required>
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter your username.
+                        </div>
+                    </div>
+                   <!--<div class="mb-4">
+                        <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">dummmy pang test</label>
+                        <div class="input-group input-group-lg">
+                            <input limit-to="1" type="text" name="name" ng-maxlength="1" pattern="[A-Da-d]" pattern="b" class="form-control" ng-model="angUsername" tabindex="1" required>
+                        </div>
+                        <div class="invalid-feedback">
+                            Dummy muna pang test
+                        </div>
+                    </div>-->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <label class="h6 d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Password</label>
+                            <div class="mb-2">
+                                <a class="small" href="recover-account.html">Forgot Password?</a>
+                            </div>
+                        </div>
+                        <!--  <div class="input-group input-group-lg">
+                            <input type="password" class="form-control" placeholder="********" ng-model="angPassword" tabindex="2" required>
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter your password.
+                        </div>-->
+                        <div class="input-group input-group-lg">
+                            <input type="{{inputType}}" name="password" class="form-control input-lg" ng-model="angPassword" tabindex="2" />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <span class="{{showHideClass}}" ng-click="showPassword()" style="cursor:pointer"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="row align-items-center mb-5">
+                        <div class="col-7">
+                            <span class="small text-secondary">Don't have an account?</span>
+                            <a href="#!/empCheck" class="small">Register here</a>
+                        </div>
+                        <div class="col-5 text-right">
+                            <button class="btn btn-primary btn-lg" ng-click="logIn()" ng-disabled="myForm.$invalid"
+                                tabindex="3">Login</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Particles -->
+<script type="text/javascript" src="../src/plugins/particles/particles.js"></script>
+<script type="text/javascript" src="../src/plugins/particles/app.js"></script>
+
+
+
+
+
+<!-- Old Design -->
+<!-- <div class="container-fluid h-100" style="background-color: #f9faff;">
+    <div class="row w-100">
+        <div class="col-md-12 d-flex justify-content-between mb-3" style="height: 58px;">
+            <div class="d-flex align-items-center">
+                <img src="images/game-controller.png" width="32" height="32">
+                <span class="h5 m-0 pl-2">Quizzen</span>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <button class="btn btn-outline-qznprimary">Get the App</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <h1 class="text-center mb-3">Login</h1>
+        <p class="text-qzndanger mb-3">{{error.error}}</p>
+    </div>
+
+    <div class="row">
+        <form name="myForm" class="w-100 d-flex align-items-center">
+            <div class="col-md-4 shadow-sm border rounded mx-auto pt-5 pr-5 pb-3 pl-5 bg-white">
+                <div class="form-group input-group-lg">
+                    <input type="text" class="form-control" placeholder="Username" ng-model="angUsername" required>
+                </div>
+
+                <div class="form-group input-group-lg mb-3">
+                    <input type="password" class="form-control" placeholder="Password" ng-model="angPassword" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="button" class="btn btn-primary btn-lg btn-block" value="LOGIN" ng-click="logIn()"
+                        ng-disabled="myForm.$invalid">
+                </div>
+
+                <p class="text-center">Forgot your password?</p>
+                <p class="text-primary text-center"><a href="#!/empCheck">Don't have an account? Register here.</a></p>
+            </div>
+        </form>
+    </div>
+</div> -->

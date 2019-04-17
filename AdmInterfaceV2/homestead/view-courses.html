@@ -1,0 +1,193 @@
+<!-- New Course Modal -->
+<div class="modal fade" id="newCourse-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h4 class="modal-title text-qznprimary">New Course</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form name="myForm">
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="error">
+                        {{error}}
+                      
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text"  class="form-control" placeholder="Course Name" ng-model="courseName" required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button type="submit" class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-disabled="myForm.$invalid" ng-click="addCourse()" >Add</button>
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Course Modal -->
+<div class="modal fade" id="updateCourse-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h4 class="modal-title text-qznprimary">Update Course</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form name="myForm">
+                    <div class="alert alert-danger alert-dismissible fade show" ng-show="error">
+                        {{error}}
+                        <button type="button" class="close" data-dismiss="alert" ng-click="error = null">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="upCName" placeholder="Course Name">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p class="text-right">
+                    <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" ng-disabled="myForm.$invalid" ng-click="updateCourse(courseID)">Save Changes</button>
+                    <button class="btn btn-outline-light btn-rounded" data-dismiss="modal">Cancel</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="h-100">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg h-100" ng-show="courses">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-3 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">Course List</h3>
+
+            <!-- Button -->
+            <div>
+                <button class="btn btn-primary btn-rounded fnt-btn fnt-primary" data-toggle="modal" data-target="#newCourse-modal">
+                    <i class="far fa-plus-square"></i> Add New Course
+                </button>
+            </div>
+        </div>
+        <!-- End Title Container -->
+
+        <div class="w-lg-95 mx-auto mb-5">
+            <div class="bg-white p-4">
+
+                <!-- Activity Menu -->
+                <div class="row justify-content-between align-items-sm-center">
+                    <div class="col-md-5 mb-sm-2">
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="d-flex">
+
+                            <!-- Search -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                                        <span class="fas fa-search"></span>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;" ng-model="searchCourse" placeholder="Search course...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Activity Menu -->
+
+                <hr class="my-4">
+
+                <!-- Request Activity Table -->
+                <div class="table-responsive">
+                    <table class="table table-borderless mb-4">
+                        <thead>
+                            <tr class="text-uppercase font-size-14" role="row">
+                                <th style="width: 254px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Course
+                                    </div>
+                                </th>
+                                <th style="width: 154px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        No. of Sections
+                                    </div>
+                                </th>
+                                <th style="width: 173px;" class="bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        Action
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                                
+                                
+                            <tr ng-repeat="course in filterCourse = (courses | filter : {course: searchCourse}) | limitTo:4:4*(page-1)">
+                                <td class="align-middle text-secondary">{{course.course}}</td>
+                                <td class="align-middle text-secondary">{{course.sections}}</td>
+                                <td class="align-middle text-primary">
+                                    <div>
+                                        <a href="#!/viewSections/{{course.course_id}}/{{course.course_prefix}}" class="btn btn-success btn-rounded fnt-btn fnt-success">
+                                            <i class="far fa-eye"></i> View Sections
+                                        </a>
+                                        <button class="btn btn-warning btn-rounded fnt-btn fnt-warning" ng-click="getCourseName(course.course_id)"
+                                            data-toggle="modal" data-target="#updateCourse-modal">
+                                            <i class="far fa-edit"></i> Edit
+                                        </button>
+                                    </div>                                    
+                                </td>
+                            </tr>
+                            <tr ng-show="!filterCourse.length">
+                                    <td colspan="4">
+                                        No results found.
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Request Activity Table -->
+
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterCourse.length" ng-model="page" items-per-page="4" max-size="5"
+        class="pagination-md justify-content-center" boundary-links="true"
+        force-ellipses="true" ng-show="filterCourse.length > 0"  ng-change="pageChanged()"></ul>
+
+    </div>
+
+    <div class="container h-100" ng-show="error1">
+            <!-- Empty List -->
+            <div class="w-lg-95 mx-auto d-flex justify-content-center align-items-center h-100">
+                <div class="text-center">
+                    <img src="../admin/svg/bill.svg" width="128" height="128" class="img-fluid mb-2">
+                    <h4 class="mb-3">You haven't uploaded any courses yet.</h4>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#newCourse-modal">
+                        <i class="far fa-plus-square"></i> Add Course Now
+                    </button>
+                    
+                </div>
+            </div>
+        </div>
+</main>

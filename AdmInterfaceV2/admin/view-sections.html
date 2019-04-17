@@ -1,0 +1,95 @@
+<!-- Redesign -->
+<main style="margin-left: 270px;" class="mb-3">
+    <div class="container qzn-pt-5--md qzn-pt-4--lg">
+
+        <!-- Title Container -->
+        <div class="w-lg-95 mx-auto mb-1 d-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <h3 class="font-weight-bold mb-0 ml-3">{{course}}</h3>
+
+            <div class="mr-3">
+                <div class="input-group mx-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-white" style="border-radius: 50px 0 0 50px;">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control border-left-0" style="border-radius: 0 50px 50px 0;"
+                        placeholder="Search section..." ng-model="admSearch">
+                </div>
+            </div>
+            <!-- Button -->
+
+        </div>
+        <!-- End Title Container -->
+
+        <!-- Breadcrumb -->
+        <div class="w-lg-95 mx-auto mb-3">
+            <nav class="mx-3">
+                <ol class="breadcrumb px-0 py-1">
+                    <li class="breadcrumb-item">
+                        <a href="#">Courses</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Handled Sections
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <!-- End Breadcrumb -->
+
+        <div class="w-lg-95 mx-auto mt-4">
+
+
+            <!-- Section Label -->
+            <label class="h6 mx-3 text-secondary d-block text-uppercase small font-weight-bold" style="letter-spacing: 0.1em;">Sections</label>
+
+            <!-- Section -->
+            <div class="row no-gutters card-deck d-block d-md-flex mb-3">
+                <div class="col-4 card mb-3" ng-repeat="y in filterSection = (handledSections | filter : admSearch) | limitTo:3:3*(page-1)">
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <div class="mb-1">
+                                <h3 class="h5 mb-1">{{prefix}} {{y.section}}</h3>
+                                <p class="font-size-14 mb-0">S.Y. {{y.schoolyear}}</p>
+                            </div>
+                            <ul class="list-inline mb-3">
+                                <li class="list-inline-item mx-auto">
+                                    <span class="u-label u-label--sm u-label--success mb-1">{{y.students}} STUDENTS</span>
+                                </li>
+                            </ul>
+
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-12">
+                                    <a ng-href="#!/viewstudents/{{y.section_id}}/{{y.schoolyear_id}}/{{y.section}}/{{prefix}}"
+                                        class="btn btn-success d-block btn-rounded fnt-btn fnt-success">
+                                        <i class="far fa-eye"></i> View Students
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container h-100" ng-show="error">
+            <!-- Empty List -->
+            <div class="w-lg-95 mx-auto d-flex justify-content-center align-items-center h-100">
+                <div class="text-center">
+                    <img src="../admin/svg/town.svg" width="128" height="128" class="img-fluid mb-2">
+                    <h4 class="mb-3">You're not assigned to any section yet.</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <ul uib-pagination total-items="filterSection.length" ng-model="page" items-per-page="6" max-size="7" class="pagination-md justify-content-center"
+            boundary-links="true" force-ellipses="true" ng-show="filterSection.length > 0" ng-change="pageChanged()"></ul>
+        <!-- End Pagination -->
+
+    </div>
+</main>
