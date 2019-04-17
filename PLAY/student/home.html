@@ -1,0 +1,48 @@
+<main class="h-100">
+    <header class="w-100 text-center bg-primary text-white shadow-sm py-2">
+        <div>
+            <img src="../src/images/quizzen-logo-inverted.png" height="60" alt="Quizzen Logo">
+        </div>
+        <button class="btn btn-warning position-absolute" style="top: 15px; right: 15px;" ng-click="LogOut()">Logout</button>
+    </header>
+
+    <div class="py-2 text-center bg-white" style="height: 85% !important;">
+        <!-- <button class="btn btn-primary" ng-repeat="x in rooms" ng-click="joinRoom(x.id)">{{x.title}}</button> -->
+        <div class="container">
+            <div class="row no-gutters justify-content-xs-center">
+                <div class="col-8 col-sm-8 offset-2 offset-md-0 col-md-4 col-lg-3 col-xl-3" 
+
+                ng-repeat="x in rooms">
+                
+                    <div class="card mx-1 mb-2">
+                        <img class="card-img-top" src="../src/images/quizzen-logo.png" width="100" height="100" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="font-weight-bold text-secondary mb-0" style="display: block; line-clamp: 2; overflow: hidden; text-overflow: ellipsis;">
+                                <a style="min-height: 1.75rem; max-height: 3.5rem; font-size: 1.125rem; line-height: 1.75rem; display: block; text-overflow: ellipsis;"
+                                    class="text-dark">
+                                    {{x.title}}</a>
+                            </h5>
+                            <p class="card-text" ng-if="x.play_mode =='S'">Single Mode</p>
+                            <p class="card-text" ng-if="x.play_mode =='T'">Team Mode Mode</p>
+                        </div>
+                        <div class="card-footer text-muted bg-white border-top-0">
+                            <a class="btn btn-primary" ng-click="joinRoom(x.id , x.play_mode)">Join Room</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No data -->
+        <div class="container h-100" ng-show="!rooms || rooms.length == 0">
+
+            <!-- Empty List -->
+            <div class="w-lg-95 mx-auto d-flex justify-content-center align-items-center h-100">
+                <div class="text-center">
+                    <img src="../src/svg/home.svg" width="128" height="128" class="img-fluid mb-2">
+                    <h4 class="mb-3">No room available at the moment.</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

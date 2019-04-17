@@ -1,0 +1,19 @@
+<!-- If tama -->
+<div class="d-flex justify-content-center align-items-center position-relative h-100 w-100 bg-success" ng-show="state == true">
+	<div class="text-center">
+		<img src="../src/svg/tick-inside-circle.svg" alt="Check" height="64">
+		<h2 class="text-white" ng-show="state == true">You are Correct</h2>
+		<h6 class="text-white">Score:{{score}}</h6>
+		<h6 class="text-white">Place:{{place}}</h6>
+	</div>
+</div>
+
+<!-- If mali -->
+<div class="d-flex justify-content-center align-items-center position-relative h-100 w-100 bg-danger" ng-show="state == false">
+	<div class="text-center">
+		<img src="../src/svg/close-button.svg" alt="Check" height="64" >
+		<h2 class="text-white" ng-show="state == false">You are Incorrect</h2>
+		<h6 class="text-white">Score:{{score}}</h6>
+		<h6 class="text-white">Place:{{place}}</h6>
+	</div>
+</div>

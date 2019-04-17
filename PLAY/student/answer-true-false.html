@@ -1,0 +1,37 @@
+<main class="h-100">
+    <header class="w-100 text-center bg-primary text-white shadow-sm py-2">
+        <h4 class="mb-0 text-white">{{mynickname}}</h4>
+        <p class="secondary mb-0">{{part.part_title}}</p>
+    </header>
+
+    <div class="py-2 mb-5 text-center">
+        <p class="text-uppercase text-secondary mt-3 mb-0">Question {{questionLine}}</p>
+
+        <h2 class="mb-4">{{question}}</h2>
+
+        <div class="w-xs-80 w-md-70 w-lg-50 mx-auto" style="display: flex; flex: 1 0 auto;">
+            <div class="w-100" style="display: flex; flex-wrap: wrap; flex-direction: row; justify-content: start;">
+                <button class="btn btn-success" style="display: flex; justify-content: center; flex-flow: row wrap; flex: 0 1 auto; margin: .25rem; width: calc(50% - .5rem); min-height: 94px;" ng-click="fillAnswer('TRUE')">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-check fa-2x mr-2"></i> True
+                    </div>
+                </button>
+                <button class="btn btn-danger" style="display: flex; justify-content: center; flex-flow: row wrap; flex: 0 1 auto; margin: .25rem; width: calc(50% - .5rem); min-height: 94px;" ng-click="fillAnswer('FALSE')">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-times fa-2x mr-2"></i> False
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+    </div>
+
+    <footer class="position-fixed w-100 p-3 d-flex bg-white justify-content-between border-top" style="bottom: 0; left: 0;">
+        <div ng-show="streak">
+            Current Streak &nbsp; <span style="color: #ed8e00;"> <i class="fas fa-fire"></i> {{streak}}</span>
+        </div>
+        <div>
+            Score: {{score}}
+        </div>
+    </footer>
+</main>

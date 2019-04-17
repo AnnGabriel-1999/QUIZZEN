@@ -1,0 +1,33 @@
+<main class="h-100">
+    <header class="w-100 text-center bg-primary text-white shadow-sm py-2">
+        <h4 class="mb-0 text-white">{{mynickname}}</h4>
+        <p class="secondary mb-0">{{part.part_title}}</p>
+    </header>
+
+    <div class="py-2 mb-5 text-center">
+        <p class="text-uppercase text-secondary mt-3 mb-0">Question {{questionLine}}</p>
+
+        <h2 class="mb-4">{{question}}</h2>
+
+        <div class="d-flex justify-content-center">
+            <div class="w-xs-80 w-md-70 w-lg-25">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="guessAnswer" placeholder="Answer">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center my-2">
+            <button class="btn btn-primary px-5" ng-click="fillAnswer(guessAnswer)">Done</button>
+        </div>
+    </div>
+
+    <footer class="position-fixed w-100 p-3 d-flex bg-white justify-content-between border-top" style="bottom: 0; left: 0;">
+        <div ng-show="streak">
+            Current Streak &nbsp; <span style="color: #ed8e00;"> <i class="fas fa-fire"></i> {{streak}}</span>
+        </div>
+        <div>
+            Score: {{score}}
+        </div>
+    </footer>
+</main>

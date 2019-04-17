@@ -1,0 +1,79 @@
+
+<main class="h-100">
+    <header class="w-100 text-center bg-primary text-white shadow-sm py-2">
+        <h4 class="mb-0 text-white">{{mynickname}}</h4>
+        <p class="secondary mb-0">{{part.part_title}}</p>
+    </header>
+
+    <div class="py-2 mb-5 text-center">
+    <!--
+        <div class="px-4">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 25%"></div>
+            </div>
+        </div>
+    -->
+
+        <p class="text-uppercase text-secondary mt-3 mb-0">Question {{questionLine}}</p>
+
+        <h2 class="mb-5 resp-text">{{question}}</h2>
+
+        <!-- SHAPES ONLY -->
+        <!-- Shapes Only -->
+        <!-- shapes only -->
+        <!-- <div class="w-xs-80 w-md-70 w-lg-50 mx-auto" style="display: flex; flex: 1 0 auto;">
+            <div class="w-100" style="display: flex; flex-wrap: wrap; flex-direction: row; justify-content: start;">
+                <button class="btn btn-qznprimary" style="display: flex; justify-content: center; flex-flow: row wrap; flex: 0 1 auto; margin: .25rem; width: calc(50% - .5rem);" ng-click="fillAnswer(choices.choice1)">
+                    <i class="fas fa-square fa-5x"></i>
+                </button>
+                <button class="btn btn-qznwarning" style="display: flex; justify-content: center; flex-flow: row wrap; flex: 0 1 auto; margin: .25rem; width: calc(50% - .5rem);" ng-click="fillAnswer(choices.choice2)">
+                    <i class="fas fa-star fa-5x"></i>
+                </button>
+                <button class="btn btn-qznsuccess" style="display: flex; justify-content: center; flex-flow: row wrap; flex: 0 1 auto; margin: .25rem; width: calc(50% - .5rem);" ng-click="fillAnswer(choices.choice3)">
+                    <i class="fas fa-circle fa-5x"></i>
+                </button>
+                <button class="btn btn-qzndanger" style="display: flex; justify-content: center; flex-flow: row wrap; flex: 0 1 auto; margin: .25rem; width: calc(50% - .5rem);" ng-click="fillAnswer(choices.choice4)">
+                    <i class="fas fa-heart fa-5x"></i>
+                </button>
+            </div>
+        </div> -->
+
+        <!-- Shapes and text -->
+        <div class="w-xs-80 w-md-70 w-lg-50 mx-auto" style="display: flex; flex: 1 0 auto;">
+            <div class="w-100" style="display: flex; flex-wrap: wrap; flex-direction: row; justify-content: start;">
+                <button class="btn btn-qznprimary" style="display: flex; justify-content: center; flex-flow: row wrap; flex: 0 1 auto; margin: .25rem; width: calc(50% - .5rem); min-height: 94px;"
+                    ng-click="fillAnswer(choices.choice1)">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-square fa-2x mr-2"></i> {{choices.choice1}}
+                    </div>
+                </button>
+                <button class="btn btn-qznwarning" style="display: flex; justify-content: center; flex-flow: row wrap; flex: 0 1 auto; margin: .25rem; width: calc(50% - .5rem); min-height: 94px;"
+                    ng-click="fillAnswer(choices.choice2)">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-star fa-2x mr-2"></i> {{choices.choice2}}
+                    </div>
+                </button>
+                <button class="btn btn-qznsuccess" style="display: flex; justify-content: center; flex-flow: row wrap; flex: 0 1 auto; margin: .25rem; width: calc(50% - .5rem); min-height: 94px;"
+                    ng-click="fillAnswer(choices.choice3)">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-circle fa-2x mr-2"></i> {{choices.choice3}}
+                    </div>
+                </button>
+                <button class="btn btn-qzndanger" style="display: flex; justify-content: center; flex-flow: row wrap; flex: 0 1 auto; margin: .25rem; width: calc(50% - .5rem); min-height: 94px;"
+                    ng-click="fillAnswer(choices.choice3)">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-heart fa-2x mr-2"></i> {{choices.choice4}}
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <footer class="position-fixed w-100 p-3 d-flex bg-white justify-content-between border-top" style="bottom: 0; left: 0;">
+            <div ng-show="streak">
+                Current Streak &nbsp; <span style="color: #ed8e00;"> <i class="fas fa-fire"></i> {{streak}}</span>
+            </div>
+            <div>
+                Score: {{score}}
+            </div>
+        </footer>
+</main>

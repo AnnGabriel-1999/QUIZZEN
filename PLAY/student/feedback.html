@@ -1,0 +1,46 @@
+<main class="h-100">
+	<header class="w-100 text-center bg-primary text-white shadow-sm py-2">
+		<div>
+			<img src="../src/images/quizzen-logo-inverted.png" height="60" alt="Quizzen Logo">
+		</div>
+	</header>
+
+	<div class="py-2 mb-5 text-center justify-content-center bg-white h-100">
+		<div class="mt-4 mb-3 text-center">
+			<img src="../src/svg/medal.svg" height="128" class="mb-2" alt="Medal">
+			<h6 class="text-secondary text-center">Final Score</h6>
+			<h2 class="text-success text-center">{{score}}</h2>
+			<h6 class="text-secondary text-center">Final Place</h6>
+			<h2 class="text-success text-center">{{place}}</h2>
+		</div>
+
+		<h6 class="mt-5 mb-2">How was your experience with Quizzen?</h6>
+		<div class="d-flex justify-content-center mx-auto w-lg-50">
+			<div class="mx-1">
+				<img src="../src/svg/sad.svg" alt="Sad" width="42" height="42" style="cursor: pointer;" class="img-fluid d-block"
+				 ng-click="sendFeedBack('A+')" ng-disabled="rated">
+			</div>
+			<div class="mx-1">
+				<img src="../src/svg/confused.svg" alt="Sad" width="42" height="42" style="cursor: pointer;" class="img-fluid d-block"
+				 ng-click="sendFeedBack('A+')" ng-disabled="rated">
+			</div>
+			<div class="mx-1">
+				<img src="../src/svg/smile.svg" alt="Sad" width="42" height="42" style="cursor: pointer;" class="img-fluid d-block"
+				 ng-click="sendFeedBack('A+')" ng-disabled="rated">
+			</div>
+			<div class="mx-1">
+				<img src="../src/svg/happy.svg" alt="Sad" width="42" height="42" style="cursor: pointer;" class="img-fluid d-block"
+				 ng-click="sendFeedBack('A+')" ng-disabled="rated">
+			</div>
+			<div class="mx-1">
+				<img src="../src/svg/in-love.svg" alt="Sad" width="42" height="42" style="cursor: pointer;" class="img-fluid d-block"
+				 ng-click="sendFeedBack('A+')" ng-disabled="rated">
+			</div>
+		</div>
+
+		<div ng-if="rated">
+			<h5 class="mt-5">Thank you for your feedback!</h5>
+			<button class="btn btn-primary" ng-click="goHome()">Go home</button>
+		</div>
+	</div>
+</main>
