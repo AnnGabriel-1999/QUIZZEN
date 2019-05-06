@@ -10,278 +10,235 @@ http.listen(port, function(){
     console.log("listening on *: " + port);
 });
 
-var nicknames = [];
+var users = [];
+var admins = [];
 var rooms = [];
 
-io.sockets.on('connection', function(socket){
+io.on('connection', function(socket){
 
-    //para malaman ni server na may pumasok na host sa kanya
-    socket.on('hostEnt',function(quizDetails){
+//** START STUDENT SOCKET EVENTS **//
 
-        //check yung array kung meron na doon tapos kung wala pa isave
-        var found = false;
-        for (var i = 0; i <= rooms.length - 1; i++) {
-            if(rooms[i].name == quizDetails.name){
-                found = true;
-            }
-        }
-        //pag di nakita sa array ipasok mo na
-        if(!found){
-            rooms.push(quizDetails);
-            nicknames.push({name: quizDetails.name , nickname : [] , finished : 0});
-        }
-
-        //sasabihin sa lahat ng socket na may bagong quiz.
-        socket.broadcast.emit('rooms', rooms);
-
-        //gawa ng room
-        if(socket.join(quizDetails.name)){
-            console.log("HOST  >>> Host " + socket.id + "created a room named " +quizDetails.name);
+    //Emits when user successful login
+    socket.on('successStudLogin' , function(studData){
+        
+        //pagka may record na update mo nalang yung socket.id nya pag wala record ka bago
+        if(users.findIndex(x => x.id === studData.id) < 0){
+            studData.socketid = socket.id;
+            users.push(studData);
+            console.log("Student "+studData.id+" Connected.");
+        }else if(users.findIndex(x => x.id === studData.id) >= 0){
+            users[users.findIndex(x => x.id === studData.id)].socketid = socket.id;
         }
     });
 
-    //para malaman ni server na may client na pumasok sa kanya}
-    socket.on('clEnt',function(clN){
-    	console.log("CLIENT >>> Client named " + clN + " entered.");
-
-        //sesend ko sa bagong pasok na client yung array nung room
-        io.to(socket.id).emit('rooms', rooms);
+    socket.on('requestRooms', function(callback){
+        callback(rooms);
     });
 
-    //pagka nagsend na ng nickname si user
-    socket.on('clientG',function(credentials){
+    socket.on('joinRoom' , function( studData , callback){
+        //if good nickname
+        roomClients = users.filter(obj => {return obj.room_joined == studData.room_id});
 
-    	//tetest kung may ganon ng nickname
-        var foundRec = false;
-        var foundN = false;
-        var foundIndex;
-        var foundUndex;
+        if(roomClients.findIndex(x => x.nickname === studData.nickname) < 0){
 
-        for (var k = 0; k <= nicknames.length-1; k++) {
-            if(nicknames[k].name == credentials.roomid){
-                foundIndex = k;
-                for (var n = 0; n <= nicknames[k].nickname.length-1; n++) {
-                    if(nicknames[k].nickname[n].nick == credentials.nickname){
-                        foundN = true;
-                    }
+            users[users.findIndex(x => x.id === studData.id)].nickname = studData.nickname;
+            users[users.findIndex(x => x.id === studData.id)].room_joined = studData.room_id;
+            socket.join(studData.room_id);
 
-                    if(nicknames[k].nickname[n].id == credentials.id){
-                        foundRec = true;
-                        foundUndex = n;
-                    }
-                }
-            }
-        }
-
-        if(!foundN){
-	       
-           //pag may record
-           if(foundRec){
-                nicknames[foundIndex].nickname[foundUndex].nick = credentials.nickname;
-                nicknames[foundIndex].nickname[foundUndex].active = true;
-           }else{
-                nicknames[foundIndex].nickname.push({nick: credentials.nickname, id: credentials.id, state: false , score: 0 , duration: 0 , streak: 0 , active: true});
-           }
-
-            //sasali sya ng room
-            socket.join(credentials.roomid);
-
-            //bibigay sa student yung quiz paper nya
-    		var quizpaper;
-    		var started;
-    		var currentp;
-    		var currentq;
-            var settings;
-            var where;
-
-            for (var g = 0; g <= rooms.length-1; g++) {
-            	if(rooms[g].name == credentials.roomid){
-            		quizpaper = rooms[g].part_assets;
-            		started = rooms[g].started;
-            		currentp = rooms[g].partnow;
-            		currentq = rooms[g].quesnow;
-                    settings = rooms[g].game_mode;
-                    where = rooms[g].where;
-            	}
-            }
-
-            //pagka nagsimula na pero nasa questions
-            if(started && where == 'NQ'){
-
-                console.log("dito ako");
-
-                socket.emit('goodNickname', quizpaper , settings);
-                socket.emit('question', {roomId : credentials.roomid, currP: currentp , currQ : currentq});
-
-            }else if(started && where == 'EQ'){ // pang nagsimula na pero nasa podium
-                socket.emit('goodNickname', quizpaper , settings , true);
-            }else{ // pag di ka late
-                
-                //sasabihin nya sa host ng room na yon na cummonect sya
-                socket.to(credentials.roomid).emit('Iconnected' , credentials.nickname);
-                socket.emit('goodNickname', quizpaper , settings , false);
-            }
+            //sasabihin ngayon kay admin sa room na kumonek sya
+            io.to(admins[admins.findIndex(x => x.room_hosted === studData.room_id)].socketid).emit('studentJoined' , users.filter(obj => {return obj.room_joined == studData.room_id }));
+            callback(true);
         }else{
-            socket.emit('badNickname' , "Im sorry. "+credentials.nickname+" is already taken. ");
+            callback(false);
+            console.log("sorry");
+        }
+    });
+
+    socket.on('requestQuizPaper' , function(room_id){
+        //speak to the host of the quiz
+       io.to(admins[admins.findIndex(x => x.room_hosted === room_id)].socketid).emit('requestQuizPaper' , socket.id);
+    });
+
+    //pagka late pumasok magtatanong sa host kung anong part at tanong na sila
+    socket.on('requestQuizPartandQuestion' , function(room_id){
+        io.to(admins[admins.findIndex(x => x.room_hosted === room_id)].socketid).emit('requestQuizPnQ' , socket.id);
+    });
+
+    socket.on('studentAnswered' , function(student_data , callback){
+        //lalagayan ng score yung studyante
+        users[users.findIndex(x => x.id === student_data.userId)].points = student_data.point;
+        users[users.findIndex(x => x.id === student_data.userId)].status = student_data.status;
+        users[users.findIndex(x => x.id === student_data.userId)].done = true;
+
+        //check if tapos na lahat ng client
+        MyClients = users.filter(obj => {return obj.room_joined == student_data.roomId});
+        DoneClients =  MyClients.filter(obj => {return obj.done == true });
+
+        //shout to host that you answered
+        io.to(admins[admins.findIndex(x => x.room_hosted === student_data.roomId)].socketid).emit('studentAnswered' , DoneClients.length);
+
+        MyClients = MyClients.sort(function(a, b) {return b.points - a.points;});
+        
+        if(MyClients.length == DoneClients.length){
+            io.to(admins[admins.findIndex(x => x.room_hosted === student_data.roomId)].socketid).emit('allFinished' , true);
+        }
+    });
+
+    socket.on('clientDoneQuiz' , function(userId){
+        //clear students records
+        users[users.findIndex(x => x.id === userId)].room_joined = null;
+        users[users.findIndex(x => x.id === userId)].points = null;
+        users[users.findIndex(x => x.id === userId)].done = null;
+        users[users.findIndex(x => x.id === userId)].nickname = null;
+    });
+//** END STUDENT SOCKET EVENTS **//
+
+
+//** START ADMIN SOCKET EVENTS **//
+    socket.on('adminCreateRoom' , function(adminData){
+
+
+        // adminRecord = {id: adminData.admin_id , room_hosted: adminData.room_id, socketid: socket.id};
+        //     console.log("Admin "+adminRecord.id+" Connected.");
+        //     admins.push(adminRecord);
+
+        if(admins.findIndex(x => x.admin_id === adminData.admin_id) < 0){
+            adminRecord = {id: adminData.admin_id , room_hosted: adminData.room_id, socketid: socket.id};
+            console.log("Admin "+adminRecord.id+" Connected.");
+            admins.push(adminRecord);
+        }else if(users.findIndex(x => x.admin_id === adminData.admin_id) >= 0){
+            admins[admins.findIndex(x => x.admin_id === adminData.admin_id)].socketid = socket.id;
+        }
+
+        if(rooms.findIndex(x => x.id === adminData.room_id) < 0){
+            roomRecord = {id: adminData.room_id , title: adminData.quiz_title , section: adminData.section};
+            socket.join(adminData.room_id);
+            console.log("A room named "+adminData.quiz_title+" was created.");
+            rooms.push(roomRecord);
+            socket.broadcast.emit('roomCreated', rooms);
         }
 
     });
 
-    //para makasignal si host na g na sa lahat ng studyante na nasa room nya
-    socket.on('startQuiz',function(message){
-    	if(socket.to(message.qID).emit('startQuizClient', "start na daw")){
+    socket.on('giveQuizPaper' , function(socketid , quizpaper , game_mode, game_status , quiz_token){
+        io.to(socketid).emit('quizReceived', quizpaper , game_mode , game_status , quiz_token);
+    });
 
-            console.log("HOST >>> Host ordered all clients of " +message.qID+ " to start the quiz.");
+    socket.on('startQuiz' , function(room_id){
+        socket.to(room_id).emit('quizStarted', "Hi folk the quiz has just started");
+    });
+
+    socket.on('giveQuestion' , function(questionData){
+        socket.to(questionData.room_id).emit('newQuestion', questionData);
+
+        //refresh mo yung done attrib ng bawat isa.
+        for(var i = 0; i <= users.length-1; i++){
+            if(users[i].room_joined == questionData.room_id){
+                users[i].done = false;
+                users[i].status = false;
+            }
+        }
+
+    });
+
+    socket.on('endQuestion' , function(room_id , callback){
+        clients = users.filter(obj => {return obj.room_joined == room_id} ).sort(function(a, b) {return b.points - a.points;});
+        callback(clients);
+
+        //shouts to all clients that the question is ended
+        socket.to(room_id).emit('questionEnded', clients);
+    });
+
+    //bibigyan nya yung tanong na currently pinapasagutan pre
+    socket.on('giveDirectionLate' , function(lateData){
+        io.to(lateData.lateid).emit('newQuestion', {current_question: lateData.current_question , current_part: lateData.current_part });
+    });
+
+    socket.on('StareQuestion' , function(room_id){
+        socket.to(room_id).emit('stareFriend', true);
+    });
+
+    socket.on('Discuss' , function(room_id){
+        socket.to(room_id).emit('discussFriend', true);
+    });
+
+    socket.on('endQuiz' , function(room_id){
+        
+        //says to all sockets that room is now gone coz quiz done
+        socket.broadcast.emit('roomCreated', rooms);
+
+        //shout to all clients that the quiz is ended
+        socket.to(room_id).emit('quizEnded', true); 
+
+        //remove the room from the rooms array
+        rooms.splice( rooms.findIndex(x => x.id === room_id) , 1);
+
+        dcHostClients = users.filter(obj => {return obj.room_joined == room_id});
+        for(var i=0; i<=dcHostClients.length-1; i++){
+            dcHostClients[i].room_joined = null;
+            dcHostClients[i].points = null;
+            dcHostClients[i].done = null;
+            dcHostClients[i].nickname = null;
+        }
+
+        console.log(users);
+
+        console.log("Quiz on room "+room_id+" ended.");
+    });
+
+    socket.on('kickClient' , function(stud_id){
+        io.to(users[users.findIndex(x => x.id === stud_id)].socketid).emit('kicked' , true);
+    });
+//** END ADMIN SOCKET EVENTS **//
+
+
+//** DISCONNECT EVENTS **//
+
+    //single disconnect event check now if admin or user
+    socket.on('disconnect' , function(){
+
+        if(users.findIndex(x => x.socketid === socket.id) > -1){
+
+            disconnectedStudent = users[users.findIndex(x => x.socketid === socket.id)];
+            //pagka kasali sya sa room
+            if(disconnectedStudent.room_joined != null){
+                socket.to(admins[admins.findIndex(x => x.room_hosted === disconnectedStudent.room_joined)].socketid).emit('LeftRoom' , disconnectedStudent.nickname);
+                disconnectedStudent.nickname = null;
+                disconnectedStudent.points = null;
+                disconnectedStudent.done = null;
+                disconnectedStudent.nickname = null;
+                disconnectedStudent.room_joined = null;
+                console.log("cleared");            
+            }
+
+            console.log("Student " + disconnectedStudent.id + " disconnected.");
+
+        }else if(admins.findIndex(x => x.socketid === socket.id) > -1){
             
-            //sisignal lang na started na pre
-            for(var x=0; x<=rooms.length-1; x++){
-            	if(rooms[x].name == message.qID){
-            		rooms[x].started = true;
-                    rooms[x].where = "SQ";
-            	}
+            //gets the dc host object
+            dcHost = admins[admins.findIndex(x => x.socketid === socket.id)];
+            //removes the room handled by that prof
+            rooms.splice( rooms.findIndex(x => x.id === dcHost.room_hosted) , 1);
+            admins.splice( admins.findIndex(x => x.id === dcHost.room_hosted) , 1);
+
+            //lilinisin yung record nung mga studyanteng hawak nya
+            dcHostClients = users.filter(obj => {return obj.room_joined == dcHost.room_hosted});
+            for(var i=0; i<=dcHostClients.length-1; i++){
+                dcHostClients[i].room_joined = null;
+                dcHostClients[i].points = null;
+                dcHostClients[i].done = null;
+                dcHostClients[i].nickname = null;
             }
 
-    	}
-    });
+            socket.to(dcHost.room_hosted).emit('hostDc' , true);
 
+            //update
+            socket.broadcast.emit('roomCreated', rooms);
+            console.log("Professor " + dcHost.id + " disconnected.");
 
-    //ADMIN EVENTS
-    socket.on('newQuestion' , function(question){
-
-    	//update ng current question sa room id para sa mga late gara talaga ng mga late e
-    	for(var x=0; x<=rooms.length-1; x++){
-        	if(rooms[x].name == question.roomId){
-        		rooms[x].partnow = question.currP;
-        		rooms[x].quesnow = question.currQ;
-                rooms[x].where = 'NQ';
-        	}
         }
-
-        //reset data ng room
-        for (var f = 0; f <= nicknames.length - 1; f++) {
-            if(nicknames[f].name == question.roomId){
-                nicknames[f].finished = 0;
-                for (var i = 0; i < nicknames[f].nickname[i].length; i++) {
-                    nicknames[f].nickname[i].state = false;
-                }
-            }
-        }
-        socket.to(question.roomId).emit('question', question);
-    });
-
-    socket.on('endQuestion' , function(room , callback){
-        //pagsabay ng pagsabing tapos na yung tapos kasama yung mga room
-
-        for (var i = 0; i <=nicknames.length-1; i++) {
-            if(nicknames[i].name == room){
-                callback(nicknames[i].nickname);
-                socket.to(room).emit('endquestion', nicknames[i].nickname); //sasabihin ng host sa lahat ng client nya na tapos na
-                break;
-            }
-        }
-
-        for(var x=0; x<=rooms.length-1; x++){
-            if(rooms[x].name == room){
-                rooms[x].where = 'EQ';
-            }
-        }
-    });
-
-    //CLIENT EVENTS
-    socket.on('iFinished' , function(details){
-        for (var f = 0; f <= nicknames.length - 1; f++) {
-            if(nicknames[f].name == details.roomId){
-                //plus 1 sa mga natapos
-                nicknames[f].finished +=1;
-
-                //update mo kung tama ba sya o mali
-                for(var v=0; v<=nicknames[f].nickname.length-1; v++){
-                    if(nicknames[f].nickname[v].id == details.userId){
-                        
-                        //update yung status ng mga studyante
-                        nicknames[f].nickname[v].state = details.correct; //kung tama ba sya o mali
-                        nicknames[f].nickname[v].duration = details.duration; // kung gaano katagal sinagutan 
-
-                        //KUNG TAMA KA PRE PLUS ONE KA SAKIN
-                        if(details.correct){
-
-                            if(details.mode.fast){
-                                //pag sya nauna buong points iuuwi nya!
-                                if(nicknames[f].finished == 1){
-                                    nicknames[f].nickname[v].score += nicknames[f].nickname.length;
-                                }else{
-                                    nicknames[f].nickname[v].score += nicknames[f].finished - 1;
-                                }
-                            }else if(details.mode.combo){
-                                nicknames[f].nickname[v].score +=1;
-                                nicknames[f].nickname[v].streak +=1;
-
-                                if(nicknames[f].nickname[v].streak>1){
-                                    nicknames[f].nickname[v].score += nicknames[f].nickname[v].streak-1;
-                                }
-                            }else{
-                                nicknames[f].nickname[v].score += 1;
-                            }
-                        }else{
-                            nicknames[f].nickname[v].streak = 0;
-                        }
-                    }
-                }
-
-                //tignan kung ilan na active tapos g na
-                var activeCounter = 0;
-                for(var c=0; c<=nicknames[f].nickname.length-1; c++){
-                    if(nicknames[f].nickname[c].active){
-                        activeCounter++;
-                    }
-                }
-                console.log("finsh"+nicknames[f].finished);
-                console.log("actv"+activeCounter);
-                //pagtapos na lahat sasabihin ng huling natapos na studyante kay prof na tapos na sila 
-                if(nicknames[f].finished == activeCounter){
-                    socket.to(details.roomId).emit('allFinished' , 'hey all clients are finished');
-                }
-
-            }
-        }
-    });
-
-    socket.on('endQuiz' , function(roomid){
-
-        //DEDELETE NYA YUNG MGA ROOM NA GINAWA NYA SAKA YUNG NICKNAMES
-        for (var i = 0; i <=nicknames.length-1; i++) {
-            if(nicknames[i].name == roomid){
-                nicknames.splice(i);
-            }
-        }
-
-        for(var x=0; x<=rooms.length-1; x++){
-            if(rooms[x].name == roomid){
-                rooms.splice(x);
-            }
-        }
-
-        socket.to(roomid).emit('taposnatayo', "tatatata"); //sasabihin ng host sa lahat ng client nya na tapos na
-        socket.disconnect();
-    });
-
-    socket.on('reloadClient' , function(room , client_id){
-       for (var i = 0; i <= nicknames.length-1; i++) {
-
-           if(nicknames[i].name == room){
-                //gagawin lang na false yung active nya para di na sya pagpasehan sa pagtapos ng quiz
-                for (var j = 0; j <= nicknames[i].nickname.length-1; j++) {
-                    if(nicknames[i].nickname[j].id == client_id){
-                        nicknames[i].nickname[j].active = false;
-                    }
-                }
-           }
-       }
 
     });
 
-    socket.on('reloadAdmin' , function(room){
-        socket.to(room).emit('adminReload', "aaaaaaaa");
-    });
 
 });
