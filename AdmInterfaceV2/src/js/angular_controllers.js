@@ -1187,7 +1187,7 @@ $http.get(getLink).then(function(response){
         }
         
 		fd.append('admin_id',localStorage.getItem("user_id"));
-		link = '/restAPI/api/Quizzes/add_quiz.php';
+		link = 'restAPI/api/Quizzes/add_quiz.php';
 
 		$http.post(link,fd,{transfromRequest:angular.identity,headers:{'Content-Type':undefined}})
 
