@@ -41,7 +41,7 @@ window.onload = function(){
 ongame.factory('mySocket', function(socketFactory){
 
   return socketFactory({
-  	ioSocket: io('http://192.168.43.140:4000',{transports: ['websocket'], upgrade: false}) //iiba ibahin pre based sa IP mo.
+  	ioSocket: io('http://192.168.1.90:4000',{transports: ['websocket'], upgrade: false}) //iiba ibahin pre based sa IP mo.
   });
 
 });
@@ -753,12 +753,10 @@ ongame.controller('feedbackCtrlr', function($http , $location , $scope , $rootSc
 		$scope.rated = true;
 
 		sendData = JSON.stringify({
-
-        "feedback_score": rate , 
-        "user_id" : sessionService.get('client_id').split('-')[0], 
-        "section_id" : sessionService.get('client_id').split('-')[1] , 
-        "quiz_id":  $rootScope.myParts[$rootScope.currentP][0][$rootScope.currentQ].quiz_id
-		
+			"feedback_score": rate , 
+			"user_id" : sessionService.get('client_id').split('-')[0], 
+			"section_id" : sessionService.get('client_id').split('-')[1] , 
+			"quiz_id":  $rootScope.myParts[$rootScope.currentP][0][$rootScope.currentQ].quiz_id
 		});
 
 		$http.post('/restAPI/api/Quizzes/submit_feedback.php' , sendData);
@@ -767,7 +765,6 @@ ongame.controller('feedbackCtrlr', function($http , $location , $scope , $rootSc
 			$location.path("/home");
 			mySocket.emit('clientDoneQuiz' , sessionService.get('client_id').split('-')[0]);
 		};
-
 	}
 });
 

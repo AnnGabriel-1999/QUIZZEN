@@ -31,7 +31,7 @@ theApp.factory('myService', function($rootScope,$http) {
 
 theApp.factory('mySocket', function(socketFactory){
 	return socketFactory({
-		ioSocket: io('http://192.168.43.140:4000',{transports: ['websocket'], upgrade: false}) //iiba ibahin pre based sa IP mo.
+		ioSocket: io('http://192.168.1.90:4000',{transports: ['websocket'], upgrade: false}) //iiba ibahin pre based sa IP mo.
 	});
 });
 
@@ -597,7 +597,7 @@ $scope.inputType = 'password';
     }
    }
   }
-        $scope.logIn = function(){
+$scope.logIn = function(){
 			$localStorage.loggedIn = false;
 
 			sendData = JSON.stringify({"sent_username" : $scope.angUsername , "sent_password" : $scope.angPassword});
@@ -628,28 +628,28 @@ $scope.inputType = 'password';
 		};
 	}]);
 
-theApp.controller('registerCtrlr', function($scope,$http,$location, $routeParams){
-	$scope.info = $routeParams.mnemonic.split('*');
-	$scope.fname = $scope.info[0];
-	$scope.lname = $scope.info[1];
-	$scope.empID = $scope.info[2];
-	$scope.signUp = function(){
-		sendData = JSON.stringify({"mirror_id" : $scope.empID, "password" : $scope.password1 ,  "username" : $scope.username ,  "confirm_pw" : $scope.password2});
+	theApp.controller('registerCtrlr', function($scope,$http,$location, $routeParams){
+		$scope.info = $routeParams.mnemonic.split('*');
+		$scope.fname = $scope.info[0];
+		$scope.lname = $scope.info[1];
+		$scope.empID = $scope.info[2];
+		$scope.signUp = function(){
+			sendData = JSON.stringify({"mirror_id" : $scope.empID, "password" : $scope.password1 ,  "username" : $scope.username ,  "confirm_pw" : $scope.password2});
 
-		link = "/restAPI/api/Hosts/register_hosts.php";
+			link = "/restAPI/api/Hosts/register_hosts.php";
 
-		$http.post(link,sendData).then(function(response){
-			if(response.data.success){
-				swal("Good Job",response.data.success,"success");
-			}else{
-				$scope.error = response.data.message;
-			}
-		}).catch(function(response){
-			console.log(response);
-		});
-	};
+			$http.post(link,sendData).then(function(response){
+				if(response.data.success){
+					swal("Good Job",response.data.success,"success");
+				}else{
+					$scope.error = response.data.message;
+				}
+			}).catch(function(response){
+				console.log(response);
+			});
+		};
 
-});
+	});
 
 theApp.controller('addSectionCtrlr',function($scope,$http,myService){
     myService.checkMeBaby();
@@ -1084,25 +1084,25 @@ theApp.controller('viewQuizzesCtrlr', function($scope, $http , $routeParams ,$lo
 $scope.page = 1;
 
 	  
-$scope.pageChanged = function() {
-  var startPos = ($scope.page - 1) * 3;
-  //$scope.displayItems = $scope.totalItems.slice(startPos, startPos + 3);
-};
+	$scope.pageChanged = function() {
+	var startPos = ($scope.page - 1) * 3;
+	//$scope.displayItems = $scope.totalItems.slice(startPos, startPos + 3);
+	};
 
 
-$scope.getQuizData = function (quizID) {
-		$scope.quizID = quizID;
-getLink = "/restAPI/api/Quizzes/readsingle_quiz.php?quizID="+ quizID;
-$http.get(getLink).then(function(response){
-	$scope.quizTitle = response.data.quiz_title;
-	$scope.quizDesc = response.data.description;
-	$scope.quiz_id = response.data.quiz_id;
-	$scope.max_id = response.data.MaxID;
-	$scope.totality = response.data.partsTotal;
-	$scope.part_id = response.data.MaxPart;
-    $scope.quizOwner = response.data.quizOwner;
-});
-}
+	$scope.getQuizData = function (quizID) {
+			$scope.quizID = quizID;
+			getLink = "/restAPI/api/Quizzes/readsingle_quiz.php?quizID="+ quizID;
+			$http.get(getLink).then(function(response){
+				$scope.quizTitle = response.data.quiz_title;
+				$scope.quizDesc = response.data.description;
+				$scope.quiz_id = response.data.quiz_id;
+				$scope.max_id = response.data.MaxID;
+				$scope.totality = response.data.partsTotal;
+				$scope.part_id = response.data.MaxPart;
+				$scope.quizOwner = response.data.quizOwner;
+			});
+	}
 
 //INSERT LAHAT NUNG NA GET NA DATA TO ANOTHER ADMIN
 $scope.shareQuiz = function(quiz_id,id,max_id,totality,part_id,quizOwner,shareAbility) {
@@ -1187,8 +1187,8 @@ $http.get(getLink).then(function(response){
         }
         
 		fd.append('admin_id',localStorage.getItem("user_id"));
-		link = 'restAPI/api/Quizzes/add_quiz.php';
-
+		link = '/restAPI/api/Quizzes/add_quiz.php';
+ 
 		$http.post(link,fd,{transfromRequest:angular.identity,headers:{'Content-Type':undefined}})
 
 		.then(function(response){
