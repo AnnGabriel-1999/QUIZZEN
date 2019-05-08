@@ -1,0 +1,14 @@
+add student
+assign admin
+view assigned
+view vacant
+view sections : active schoolyear
+    -filter:  
+        -by year_level
+        -by course    
+
+        
+android
+    validate student num
+    retrieve student data
+    register

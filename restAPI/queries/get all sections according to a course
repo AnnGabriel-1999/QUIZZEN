@@ -1,0 +1,1 @@
+select sec.section from sections sec inner join courses on sec.course_id = courses.course_id where courses.course_id = 1
